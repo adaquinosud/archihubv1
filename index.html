@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCHI · Hub Sophia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Manrope', 'system-ui', 'sans-serif'],
+            display: ['Space Grotesk', 'Manrope', 'sans-serif']
+          },
+          colors: {
+            archi: {
+              midnight: '#050816',
+              horizon: '#0f172a',
+              iris: '#6366f1',
+              lilac: '#a855f7',
+              aqua: '#22d3ee',
+              blush: '#f472b6',
+              amber: '#f59e0b',
+              mint: '#34d399'
+            }
+          },
+          boxShadow: {
+            frame: '0 30px 55px -20px rgba(15, 23, 42, 0.65)',
+            glow: '0 0 45px rgba(99, 102, 241, 0.45)'
+          },
+          dropShadow: {
+            neon: '0 8px 25px rgba(99, 102, 241, 0.45)'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="relative min-h-screen bg-archi-midnight text-slate-100 overflow-x-hidden">
+  <div class="pointer-events-none absolute inset-0">
+    <div class="absolute -top-20 -left-32 h-96 w-96 rounded-full bg-archi-iris/40 blur-3xl"></div>
+    <div class="absolute top-1/3 right-[-6rem] h-[28rem] w-[28rem] rounded-full bg-archi-aqua/30 blur-3xl"></div>
+    <div class="absolute bottom-[-10rem] left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-archi-blush/25 blur-3xl"></div>
+  </div>
+
+  <header class="relative z-10 px-6 pt-12 pb-10">
+    <div class="max-w-6xl mx-auto flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+      <div class="space-y-4 max-w-2xl">
+        <p class="text-xs tracking-[0.48em] uppercase text-archi-aqua/80">ARCHI / SOPHIA</p>
+        <h1 class="text-3xl md:text-[3rem] md:leading-[1.05] font-display text-white drop-shadow-neon">
+          Hub Sophia: um único espaço para escolher sua próxima jornada espiritual
+        </h1>
+        <p class="text-base md:text-lg text-slate-200/85 leading-relaxed">
+          Um dashboard contemplativo com linguagem visual moderna, inspirado em neons suaves e vidro fosco. O “Sophia Orb” central responde ao toque e guia o cristão a qualquer jornada em segundos.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2 text-[0.7rem] tracking-[0.35em] uppercase text-white/60">
+        <span class="px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">Inventário</span>
+        <span class="px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">Escuta</span>
+        <span class="px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">Devocional</span>
+        <span class="px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">Biblioteca</span>
+        <span class="px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">Jornada</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 max-w-6xl mx-auto px-6 pb-24 space-y-24">
+    <section id="hub" class="scroll-mt-28">
+      <div class="flex flex-col gap-12 xl:flex-row xl:items-start">
+        <article class="flex-1 space-y-6">
+          <div class="space-y-3">
+            <p class="text-xs tracking-[0.38em] uppercase text-archi-aqua/80">Nova experiência</p>
+            <h2 class="text-2xl md:text-[2.4rem] font-display text-white">Home unificada com estética futurista</h2>
+            <p class="text-slate-200/80 leading-relaxed">
+              O hub condensa o acompanhamento completo em uma única superfície luminescente. Indicadores de serenidade, convites espirituais e o Sophia Orb flutuam sobre um fundo escuro com toques neon, dando clareza e foco ao próximo passo.
+            </p>
+          </div>
+          <ul class="grid gap-4 text-sm text-slate-200/70">
+            <li class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-iris"></span>
+              <p>Cards de briefing em vidro fosco apresentam a presença de Deus no dia, sinais emocionais e recomendações instantâneas.</p>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-lilac"></span>
+              <p>O Sophia Orb pulsa com gradientes vivos; um toque abre atalhos, segurar ativa um momento guiado e arrastar revela a sequência de jornadas.</p>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-aqua"></span>
+              <p>Próximas ações aparecem em cartões cromáticos para facilitar decisões rápidas sem perder o clima contemplativo.</p>
+            </li>
+          </ul>
+        </article>
+
+        <div class="flex-1 flex justify-center">
+          <div class="flex flex-col lg:flex-row gap-10 items-center">
+            <div class="w-[320px] h-[640px] rounded-[40px] bg-white/10 border border-white/15 backdrop-blur-xl shadow-frame shadow-[0_35px_70px_-30px_rgba(15,23,42,0.55)] p-6 flex flex-col gap-6">
+              <header class="flex items-center justify-between text-xs font-semibold text-white/80 uppercase tracking-[0.3em]">
+                <span>Shalom, Ana</span>
+                <span class="px-3 py-1 rounded-full bg-archi-iris/20 text-archi-aqua">Dia 42</span>
+              </header>
+              <div class="space-y-5 overflow-hidden">
+                <div class="rounded-3xl bg-white/5 border border-white/10 backdrop-blur p-6 space-y-3">
+                  <p class="text-[0.65rem] uppercase tracking-[0.4em] text-archi-aqua">Resumo celestial</p>
+                  <h3 class="font-semibold text-lg text-white/90">“Permaneça nEle; hoje você foi luz generosa no trabalho.”</h3>
+                  <div class="flex gap-4 text-xs text-slate-200/75">
+                    <span class="flex items-center gap-1"><span class="h-2 w-2 rounded-full bg-archi-mint"></span> Gratidão elevada</span>
+                    <span class="flex items-center gap-1"><span class="h-2 w-2 rounded-full bg-archi-aqua"></span> Paz estável</span>
+                  </div>
+                </div>
+
+                <div class="relative flex flex-col items-center pt-10 pb-8">
+                  <span class="text-[0.6rem] uppercase tracking-[0.45em] text-white/60 mb-5">Sophia Orb</span>
+                  <div class="relative">
+                    <div class="absolute inset-0 m-auto w-52 h-52 rounded-full bg-archi-iris/25 blur-3xl"></div>
+                    <div class="absolute inset-0 m-auto w-40 h-40 rounded-full bg-archi-lilac/30 blur-xl"></div>
+                    <button class="relative flex flex-col items-center justify-center w-44 h-44 rounded-full bg-gradient-to-br from-archi-iris via-archi-lilac to-archi-aqua text-white shadow-glow transition-transform duration-300 hover:scale-105">
+                      <span class="text-[0.62rem] uppercase tracking-[0.5em]">Guia-me</span>
+                      <span class="text-[2.8rem] font-display leading-none drop-shadow-neon">SOPHIA</span>
+                      <span class="mt-3 text-[0.6rem] tracking-[0.38em] uppercase text-white/80">Toque ou segure</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-[0.85rem]">
+                  <div class="rounded-3xl border border-archi-mint/30 bg-archi-mint/10 p-4 space-y-1">
+                    <p class="text-[0.6rem] uppercase tracking-[0.35em] text-archi-mint">Hoje</p>
+                    <p class="text-white/85">Devocional · “Confiança ativa”</p>
+                    <span class="text-[0.65rem] text-archi-mint/90">8 minutos</span>
+                  </div>
+                  <div class="rounded-3xl border border-archi-amber/30 bg-archi-amber/10 p-4 space-y-1">
+                    <p class="text-[0.6rem] uppercase tracking-[0.35em] text-archi-amber">Próximo</p>
+                    <p class="text-white/85">Inventário · Fruto do Espírito</p>
+                    <span class="text-[0.65rem] text-archi-amber/90">Atualizar</span>
+                  </div>
+                  <div class="rounded-3xl border border-archi-iris/30 bg-archi-iris/15 p-4 space-y-1">
+                    <p class="text-[0.6rem] uppercase tracking-[0.35em] text-archi-iris">Escuta ativa</p>
+                    <p class="text-white/85">Padrão detectado · foco</p>
+                    <span class="text-[0.65rem] text-archi-iris/80">2 insights</span>
+                  </div>
+                  <div class="rounded-3xl border border-archi-blush/40 bg-archi-blush/15 p-4 space-y-1">
+                    <p class="text-[0.6rem] uppercase tracking-[0.35em] text-archi-blush">Diário</p>
+                    <p class="text-white/85">Registrar gratidão</p>
+                    <span class="text-[0.65rem] text-archi-blush/80">Sugestão pronta</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="w-[320px] h-[640px] rounded-[40px] bg-gradient-to-b from-white/15 via-white/10 to-white/5 border border-white/15 backdrop-blur-2xl shadow-frame shadow-[0_38px_80px_-35px_rgba(4,9,30,0.7)] p-6 flex flex-col">
+              <header class="flex items-center justify-between text-[0.62rem] font-semibold uppercase tracking-[0.38em] text-white/70">
+                <span>Escolha sua jornada</span>
+                <span>12:45</span>
+              </header>
+              <div class="relative flex-1 flex flex-col items-center justify-center">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <button class="z-10 flex flex-col items-center justify-center w-40 h-40 rounded-full bg-gradient-to-br from-archi-iris via-archi-lilac to-archi-aqua text-white border border-white/20 shadow-glow transition-transform duration-300 hover:-translate-y-1">
+                    <span class="text-[0.58rem] uppercase tracking-[0.42em]">Sophia</span>
+                    <span class="text-2xl font-display">Guia central</span>
+                    <span class="mt-3 text-[0.55rem] tracking-[0.4em] text-white/80">Arraste ou segure</span>
+                  </button>
+                </div>
+                <div class="grid grid-cols-2 gap-3 w-full px-1 text-left text-sm">
+                  <button class="rounded-3xl bg-white/12 border border-white/20 backdrop-blur p-4 text-left transition-all duration-300 hover:border-archi-iris/60 hover:bg-archi-iris/15">
+                    <p class="text-[0.55rem] uppercase tracking-[0.35em] text-archi-iris">Inventário</p>
+                    <p class="mt-2 font-semibold text-white/90">Mapear dons e desafios</p>
+                    <span class="text-[0.6rem] text-white/60">Atualizado há 3 dias</span>
+                  </button>
+                  <button class="rounded-3xl bg-white/12 border border-white/20 backdrop-blur p-4 text-left transition-all duration-300 hover:border-archi-aqua/70 hover:bg-archi-aqua/15">
+                    <p class="text-[0.55rem] uppercase tracking-[0.35em] text-archi-aqua">Escuta ativa</p>
+                    <p class="mt-2 font-semibold text-white/90">Conectar emoções às Escrituras</p>
+                    <span class="text-[0.6rem] text-white/60">2 insights pendentes</span>
+                  </button>
+                  <button class="rounded-3xl bg-white/12 border border-white/20 backdrop-blur p-4 text-left transition-all duration-300 hover:border-archi-mint/70 hover:bg-archi-mint/15">
+                    <p class="text-[0.55rem] uppercase tracking-[0.35em] text-archi-mint">Devocional</p>
+                    <p class="mt-2 font-semibold text-white/90">Resumo do dia & plano</p>
+                    <span class="text-[0.6rem] text-white/60">Hoje · 22h</span>
+                  </button>
+                  <button class="rounded-3xl bg-white/12 border border-white/20 backdrop-blur p-4 text-left transition-all duration-300 hover:border-archi-amber/70 hover:bg-archi-amber/15">
+                    <p class="text-[0.55rem] uppercase tracking-[0.35em] text-archi-amber">Biblioteca</p>
+                    <p class="mt-2 font-semibold text-white/90">Descobertas personalizadas</p>
+                    <span class="text-[0.6rem] text-white/60">Novo conteúdo</span>
+                  </button>
+                  <button class="rounded-3xl bg-white/12 border border-white/20 backdrop-blur p-4 text-left transition-all duration-300 hover:border-archi-lilac/70 hover:bg-archi-lilac/15">
+                    <p class="text-[0.55rem] uppercase tracking-[0.35em] text-archi-lilac">Jornada</p>
+                    <p class="mt-2 font-semibold text-white/90">KPIs espirituais</p>
+                    <span class="text-[0.6rem] text-white/60">Paz +12%</span>
+                  </button>
+                  <button class="rounded-3xl bg-white/12 border border-white/20 backdrop-blur p-4 text-left transition-all duration-300 hover:border-archi-blush/70 hover:bg-archi-blush/15">
+                    <p class="text-[0.55rem] uppercase tracking-[0.35em] text-archi-blush">Diário</p>
+                    <p class="mt-2 font-semibold text-white/90">Registrar experiências</p>
+                    <span class="text-[0.6rem] text-white/60">Sugestões Sophia</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="journeys" class="scroll-mt-24">
+      <div class="flex flex-col gap-10 xl:flex-row xl:items-start">
+        <article class="flex-1 space-y-6">
+          <div class="space-y-3">
+            <p class="text-xs tracking-[0.38em] uppercase text-archi-aqua/80">Cartões orbitais</p>
+            <h2 class="text-2xl md:text-[2.4rem] font-display text-white">Jornadas conectadas ao redor do Sophia Orb</h2>
+            <p class="text-slate-200/80 leading-relaxed">
+              Quando o usuário escolhe um caminho, os demais cartões reajustam-se com feedback luminoso. O design modular garante consistência visual e deixa claro o impacto espiritual de cada escolha.
+            </p>
+          </div>
+          <div class="grid gap-4 text-sm text-slate-200/75">
+            <div class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-mint"></span>
+              <p>Inventário dispara alertas sutis ao detectar mudanças emocionais vindas da escuta ativa.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-amber"></span>
+              <p>Devocional destaca horário e clima espiritual do dia, preparando o coração com leveza.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-aqua"></span>
+              <p>Biblioteca usa gradientes para indicar novos conteúdos expandidos pela IA Sophia.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-blush"></span>
+              <p>Jornada e diário compartilham badges neon quando há algo inspirado para celebrar com mentores.</p>
+            </div>
+          </div>
+        </article>
+
+        <div class="flex-1">
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div class="rounded-3xl bg-white/12 border border-white/15 backdrop-blur-xl p-6 shadow-[0_28px_60px_-20px_rgba(5,8,22,0.55)]">
+              <p class="text-[0.6rem] uppercase tracking-[0.4em] text-archi-iris">Inventário</p>
+              <h3 class="mt-3 text-xl font-semibold text-white/90">Estado espiritual atual</h3>
+              <p class="mt-3 text-sm text-slate-200/75 leading-relaxed">Dons ativos, desafios e frutos monitorados. O Orb acende em lilás quando identifica um novo ponto de atenção.</p>
+              <div class="mt-4 flex items-center justify-between text-[0.7rem] text-archi-iris">
+                <span>Atualizado · 3 dias</span>
+                <span class="px-3 py-1 rounded-full bg-archi-iris/15">Ver jornada</span>
+              </div>
+            </div>
+
+            <div class="rounded-3xl bg-white/12 border border-white/15 backdrop-blur-xl p-6 shadow-[0_28px_60px_-20px_rgba(5,8,22,0.55)]">
+              <p class="text-[0.6rem] uppercase tracking-[0.4em] text-archi-mint">Devocional</p>
+              <h3 class="mt-3 text-xl font-semibold text-white/90">Resumo, padrões e plano</h3>
+              <p class="mt-3 text-sm text-slate-200/75 leading-relaxed">Narrativa do dia com visual orgânico, mostrando transições de cor entre presença divina, padrões e próximos passos.</p>
+              <div class="mt-4 flex items-center justify-between text-[0.7rem] text-archi-mint">
+                <span>Pronto para 22h</span>
+                <span class="px-3 py-1 rounded-full bg-archi-mint/15">Acessar</span>
+              </div>
+            </div>
+
+            <div class="rounded-3xl bg-white/12 border border-white/15 backdrop-blur-xl p-6 shadow-[0_28px_60px_-20px_rgba(5,8,22,0.55)]">
+              <p class="text-[0.6rem] uppercase tracking-[0.4em] text-archi-aqua">Biblioteca</p>
+              <h3 class="mt-3 text-xl font-semibold text-white/90">Conteúdo personalizado</h3>
+              <p class="mt-3 text-sm text-slate-200/75 leading-relaxed">Livros, sermões, podcasts e exercícios com selo visual de relevância espiritual curado pela IA.</p>
+              <div class="mt-4 flex items-center justify-between text-[0.7rem] text-archi-aqua">
+                <span>3 novas recomendações</span>
+                <span class="px-3 py-1 rounded-full bg-archi-aqua/15">Explorar</span>
+              </div>
+            </div>
+
+            <div class="rounded-3xl bg-white/12 border border-white/15 backdrop-blur-xl p-6 shadow-[0_28px_60px_-20px_rgba(5,8,22,0.55)]">
+              <p class="text-[0.6rem] uppercase tracking-[0.4em] text-archi-blush">Jornada & Diário</p>
+              <h3 class="mt-3 text-xl font-semibold text-white/90">Progresso e memória</h3>
+              <p class="mt-3 text-sm text-slate-200/75 leading-relaxed">KPIs espirituais, marcos e registros ganham badges neon, prontos para compartilhar com mentores ou grupos da igreja.</p>
+              <div class="mt-4 flex items-center justify-between text-[0.7rem] text-archi-blush">
+                <span>Paz +12% · 4 marcos</span>
+                <span class="px-3 py-1 rounded-full bg-archi-blush/15">Continuar</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="flows" class="scroll-mt-24">
+      <div class="rounded-[36px] bg-white/12 border border-white/15 backdrop-blur-2xl shadow-[0_40px_110px_-45px_rgba(5,8,22,0.7)] p-10 space-y-10">
+        <div class="max-w-2xl space-y-3">
+          <p class="text-xs tracking-[0.4em] uppercase text-archi-aqua/80">Experiências guiadas</p>
+          <h2 class="text-2xl md:text-[2.4rem] font-display text-white">Movimentos do Sophia Orb</h2>
+          <p class="text-slate-200/80 leading-relaxed">
+            O botão central mistura feedback visual neon e microinterações suaves. Cada gesto ativa uma camada espiritual diferente, mantendo a navegação 100% guiada pela presença de Deus.
+          </p>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-3 text-sm text-slate-200/80">
+          <div class="rounded-3xl border border-archi-lilac/40 bg-archi-lilac/10 p-6 space-y-4 backdrop-blur">
+            <h3 class="text-xl font-semibold text-archi-lilac">Toque rápido</h3>
+            <p>Abre o menu orbital com cartões das jornadas. Sophia destaca a prioridade do momento.</p>
+            <ul class="space-y-2 text-xs text-archi-lilac/80">
+              <li>• Sugestões priorizadas pela IA</li>
+              <li>• Destaque para devocional agendado</li>
+              <li>• Ação “Deixe Sophia escolher”</li>
+            </ul>
+          </div>
+          <div class="rounded-3xl border border-archi-mint/40 bg-archi-mint/10 p-6 space-y-4 backdrop-blur">
+            <h3 class="text-xl font-semibold text-archi-mint">Manter pressionado</h3>
+            <p>Ativa “Momento guiado”: oração, respiração ou leitura com áudio ambiente e visual calmante.</p>
+            <ul class="space-y-2 text-xs text-archi-mint/80">
+              <li>• Ideal para crises imediatas</li>
+              <li>• Conteúdo multimídia contextual</li>
+              <li>• Acesso rápido a mentores</li>
+            </ul>
+          </div>
+          <div class="rounded-3xl border border-archi-aqua/40 bg-archi-aqua/10 p-6 space-y-4 backdrop-blur">
+            <h3 class="text-xl font-semibold text-archi-aqua">Arrastar</h3>
+            <p>Permite deslizar entre jornadas com feedback háptico e indicadores de progresso iluminados.</p>
+            <ul class="space-y-2 text-xs text-archi-aqua/80">
+              <li>• Visualização circular das rotas</li>
+              <li>• Sugerido pela sequência espiritual</li>
+              <li>• Possibilidade de pin favoritos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="relative z-10 max-w-6xl mx-auto px-6 pb-12 text-sm text-white/50">
+    <div class="h-px bg-white/20 mb-6"></div>
+    <p>Mockup conceitual · Junho 2024 · ARCHI / Sophia Engine · Hub central com estética neon e botão Sophia Orb.</p>
+  </footer>
+</body>
+</html>
