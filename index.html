@@ -1,1 +1,1002 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCHI · Hub Sophia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Manrope', 'system-ui', 'sans-serif'],
+            display: ['Space Grotesk', 'Manrope', 'sans-serif']
+          },
+          colors: {
+            archi: {
+              midnight: '#050816',
+              horizon: '#0f172a',
+              iris: '#6366f1',
+              lilac: '#a855f7',
+              aqua: '#22d3ee',
+              blush: '#f472b6',
+              amber: '#f59e0b',
+              mint: '#34d399'
+            }
+          },
+          boxShadow: {
+            frame: '0 30px 55px -20px rgba(15, 23, 42, 0.65)',
+            glow: '0 0 45px rgba(99, 102, 241, 0.45)'
+          },
+          dropShadow: {
+            neon: '0 8px 25px rgba(99, 102, 241, 0.45)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes orbPop {
+      0% { transform: translateY(0) scale(1); }
+      40% { transform: translateY(-12px) scale(1.08); }
+      70% { transform: translateY(3px) scale(0.97); }
+      100% { transform: translateY(0) scale(1); }
+    }
+    .animate-orb-pop {
+      animation: orbPop 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    #heroOrb {
+      cursor: grab;
+      touch-action: none;
+    }
+    #heroOrb.dragging {
+      cursor: grabbing;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen bg-archi-midnight text-slate-100 overflow-x-hidden">
+  <div class="pointer-events-none absolute inset-0">
+    <div class="absolute -top-20 -left-32 h-96 w-96 rounded-full bg-archi-iris/40 blur-3xl"></div>
+    <div class="absolute top-1/3 right-[-6rem] h-[28rem] w-[28rem] rounded-full bg-archi-aqua/30 blur-3xl"></div>
+    <div class="absolute bottom-[-10rem] left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-archi-blush/25 blur-3xl"></div>
+  </div>
+
+  <header class="relative z-10 px-6 pt-12 pb-10">
+    <div class="max-w-6xl mx-auto flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+      <div class="space-y-4 max-w-2xl">
+        <p class="text-xs tracking-[0.48em] uppercase text-archi-aqua/80">ARCHI / SOPHIA</p>
+        <h1 class="text-3xl md:text-[3rem] md:leading-[1.05] font-display text-white drop-shadow-neon">
+          Hub Sophia: um único espaço para escolher sua próxima jornada espiritual
+        </h1>
+        <p class="text-base md:text-lg text-slate-200/85 leading-relaxed">
+          Um dashboard contemplativo com linguagem visual moderna, inspirado em neons suaves e vidro fosco. O “Sophia Orb” central responde ao toque e guia o cristão a qualquer jornada em segundos.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2 text-[0.7rem] tracking-[0.35em] uppercase text-white/60">
+        <span class="px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">Inventário</span>
+        <span class="px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">Escuta</span>
+        <span class="px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">Devocional</span>
+        <span class="px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">Biblioteca</span>
+        <span class="px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">Jornada</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 max-w-6xl mx-auto px-6 pb-24 space-y-24">
+    <section id="hub" class="scroll-mt-28">
+      <div class="flex flex-col gap-12 xl:flex-row xl:items-start">
+        <article class="flex-1 space-y-6">
+          <div class="space-y-3">
+            <p class="text-xs tracking-[0.38em] uppercase text-archi-aqua/80">Nova experiência</p>
+            <h2 class="text-2xl md:text-[2.4rem] font-display text-white">Home unificada com estética futurista</h2>
+            <p class="text-slate-200/80 leading-relaxed">
+              O hub condensa o acompanhamento completo em uma única superfície luminescente. Indicadores de serenidade, convites espirituais e o Sophia Orb flutuam sobre um fundo escuro com toques neon, dando clareza e foco ao próximo passo.
+            </p>
+          </div>
+          <ul class="grid gap-4 text-sm text-slate-200/70">
+            <li class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-iris"></span>
+              <p>Cards de briefing em vidro fosco apresentam a presença de Deus no dia, sinais emocionais e recomendações instantâneas.</p>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-lilac"></span>
+              <p>O Sophia Orb pulsa com gradientes vivos; um toque abre atalhos, segurar ativa um momento guiado e arrastar revela a sequência de jornadas.</p>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-aqua"></span>
+              <p>Próximas ações aparecem em cartões cromáticos para facilitar decisões rápidas sem perder o clima contemplativo.</p>
+            </li>
+          </ul>
+        </article>
+
+        <div class="flex-1 flex justify-center">
+          <div class="flex flex-col lg:flex-row gap-10 items-center">
+            <div class="w-[320px] h-[640px] rounded-[40px] bg-white/10 border border-white/15 backdrop-blur-xl shadow-frame shadow-[0_35px_70px_-30px_rgba(15,23,42,0.55)] p-6 flex flex-col gap-6">
+              <header class="flex items-center justify-between text-xs font-semibold text-white/80 uppercase tracking-[0.3em]">
+                <span>Shalom, Ana</span>
+                <span class="px-3 py-1 rounded-full bg-archi-iris/20 text-archi-aqua">Dia 42</span>
+              </header>
+              <div class="space-y-5 overflow-hidden">
+                <div class="rounded-3xl bg-white/5 border border-white/10 backdrop-blur p-6 space-y-3">
+                  <p class="text-[0.65rem] uppercase tracking-[0.4em] text-archi-aqua">Resumo celestial</p>
+                  <h3 class="font-semibold text-lg text-white/90">“Permaneça nEle; hoje você foi luz generosa no trabalho.”</h3>
+                  <div class="flex gap-4 text-xs text-slate-200/75">
+                    <span class="flex items-center gap-1"><span class="h-2 w-2 rounded-full bg-archi-mint"></span> Gratidão elevada</span>
+                    <span class="flex items-center gap-1"><span class="h-2 w-2 rounded-full bg-archi-aqua"></span> Paz estável</span>
+                  </div>
+                </div>
+
+                <div class="relative flex flex-col items-center pt-10 pb-8">
+                  <span class="text-[0.6rem] uppercase tracking-[0.45em] text-white/60 mb-5">Sophia Orb</span>
+                  <div class="relative h-56 w-56 flex items-center justify-center">
+                    <div id="heroOrbWrapper" class="relative flex items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                      <div id="heroOrbHalo" class="absolute inset-0 m-auto w-52 h-52 rounded-full bg-archi-iris/25 blur-3xl transition-all duration-500"></div>
+                      <div id="heroOrbGlow" class="absolute inset-0 m-auto w-40 h-40 rounded-full bg-archi-lilac/30 blur-xl transition-all duration-500"></div>
+                      <button id="heroOrb" class="relative flex flex-col items-center justify-center w-44 h-44 rounded-full bg-gradient-to-br from-archi-iris via-archi-lilac to-archi-aqua text-white shadow-glow transition-transform duration-500 hover:scale-105">
+                        <span class="text-[0.62rem] uppercase tracking-[0.5em]">Guia-me</span>
+                        <span id="heroOrbText" class="text-[2.8rem] font-display leading-none drop-shadow-neon">SOPHIA</span>
+                        <span id="heroOrbCaption" class="mt-3 text-[0.6rem] tracking-[0.38em] uppercase text-white/80">Toque ou segure</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-[0.85rem]">
+                  <div class="rounded-3xl border border-archi-mint/30 bg-archi-mint/10 p-4 space-y-1">
+                    <p class="text-[0.6rem] uppercase tracking-[0.35em] text-archi-mint">Hoje</p>
+                    <p class="text-white/85">Devocional · “Confiança ativa”</p>
+                    <span class="text-[0.65rem] text-archi-mint/90">8 minutos</span>
+                  </div>
+                  <div class="rounded-3xl border border-archi-amber/30 bg-archi-amber/10 p-4 space-y-1">
+                    <p class="text-[0.6rem] uppercase tracking-[0.35em] text-archi-amber">Próximo</p>
+                    <p class="text-white/85">Inventário · Fruto do Espírito</p>
+                    <span class="text-[0.65rem] text-archi-amber/90">Atualizar</span>
+                  </div>
+                  <div class="rounded-3xl border border-archi-iris/30 bg-archi-iris/15 p-4 space-y-1">
+                    <p class="text-[0.6rem] uppercase tracking-[0.35em] text-archi-iris">Escuta ativa</p>
+                    <p class="text-white/85">Padrão detectado · foco</p>
+                    <span class="text-[0.65rem] text-archi-iris/80">2 insights</span>
+                  </div>
+                  <div class="rounded-3xl border border-archi-blush/40 bg-archi-blush/15 p-4 space-y-1">
+                    <p class="text-[0.6rem] uppercase tracking-[0.35em] text-archi-blush">Diário</p>
+                    <p class="text-white/85">Registrar gratidão</p>
+                    <span class="text-[0.65rem] text-archi-blush/80">Sugestão pronta</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="w-[320px] h-[640px] rounded-[40px] bg-gradient-to-b from-white/15 via-white/10 to-white/5 border border-white/15 backdrop-blur-2xl shadow-frame shadow-[0_38px_80px_-35px_rgba(4,9,30,0.7)] p-6 flex flex-col">
+              <header class="flex items-center justify-between text-[0.62rem] font-semibold uppercase tracking-[0.38em] text-white/70">
+                <span>Escolha sua jornada</span>
+                <span>12:45</span>
+              </header>
+              <div class="relative flex-1 flex flex-col items-center justify-center">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <button class="z-10 flex flex-col items-center justify-center w-40 h-40 rounded-full bg-gradient-to-br from-archi-iris via-archi-lilac to-archi-aqua text-white border border-white/20 shadow-glow transition-transform duration-300 hover:-translate-y-1">
+                    <span class="text-[0.58rem] uppercase tracking-[0.42em]">Sophia</span>
+                    <span class="text-2xl font-display">Guia central</span>
+                    <span class="mt-3 text-[0.55rem] tracking-[0.4em] text-white/80">Arraste ou segure</span>
+                  </button>
+                </div>
+                <div class="grid grid-cols-2 gap-3 w-full px-1 text-left text-sm">
+                  <button class="rounded-3xl bg-white/12 border border-white/20 backdrop-blur p-4 text-left transition-all duration-300 hover:border-archi-iris/60 hover:bg-archi-iris/15">
+                    <p class="text-[0.55rem] uppercase tracking-[0.35em] text-archi-iris">Inventário</p>
+                    <p class="mt-2 font-semibold text-white/90">Mapear dons e desafios</p>
+                    <span class="text-[0.6rem] text-white/60">Atualizado há 3 dias</span>
+                  </button>
+                  <button class="rounded-3xl bg-white/12 border border-white/20 backdrop-blur p-4 text-left transition-all duration-300 hover:border-archi-aqua/70 hover:bg-archi-aqua/15">
+                    <p class="text-[0.55rem] uppercase tracking-[0.35em] text-archi-aqua">Escuta ativa</p>
+                    <p class="mt-2 font-semibold text-white/90">Conectar emoções às Escrituras</p>
+                    <span class="text-[0.6rem] text-white/60">2 insights pendentes</span>
+                  </button>
+                  <button class="rounded-3xl bg-white/12 border border-white/20 backdrop-blur p-4 text-left transition-all duration-300 hover:border-archi-mint/70 hover:bg-archi-mint/15">
+                    <p class="text-[0.55rem] uppercase tracking-[0.35em] text-archi-mint">Devocional</p>
+                    <p class="mt-2 font-semibold text-white/90">Resumo do dia & plano</p>
+                    <span class="text-[0.6rem] text-white/60">Hoje · 22h</span>
+                  </button>
+                  <button class="rounded-3xl bg-white/12 border border-white/20 backdrop-blur p-4 text-left transition-all duration-300 hover:border-archi-amber/70 hover:bg-archi-amber/15">
+                    <p class="text-[0.55rem] uppercase tracking-[0.35em] text-archi-amber">Biblioteca</p>
+                    <p class="mt-2 font-semibold text-white/90">Descobertas personalizadas</p>
+                    <span class="text-[0.6rem] text-white/60">Novo conteúdo</span>
+                  </button>
+                  <button class="rounded-3xl bg-white/12 border border-white/20 backdrop-blur p-4 text-left transition-all duration-300 hover:border-archi-lilac/70 hover:bg-archi-lilac/15">
+                    <p class="text-[0.55rem] uppercase tracking-[0.35em] text-archi-lilac">Jornada</p>
+                    <p class="mt-2 font-semibold text-white/90">KPIs espirituais</p>
+                    <span class="text-[0.6rem] text-white/60">Paz +12%</span>
+                  </button>
+                  <button class="rounded-3xl bg-white/12 border border-white/20 backdrop-blur p-4 text-left transition-all duration-300 hover:border-archi-blush/70 hover:bg-archi-blush/15">
+                    <p class="text-[0.55rem] uppercase tracking-[0.35em] text-archi-blush">Diário</p>
+                    <p class="mt-2 font-semibold text-white/90">Registrar experiências</p>
+                    <span class="text-[0.6rem] text-white/60">Sugestões Sophia</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="journeys" class="scroll-mt-24">
+      <div class="flex flex-col gap-10 xl:flex-row xl:items-start">
+        <article class="flex-1 space-y-6">
+          <div class="space-y-3">
+            <p class="text-xs tracking-[0.38em] uppercase text-archi-aqua/80">Cartões orbitais</p>
+            <h2 class="text-2xl md:text-[2.4rem] font-display text-white">Jornadas conectadas ao redor do Sophia Orb</h2>
+            <p class="text-slate-200/80 leading-relaxed">
+              Quando o usuário escolhe um caminho, os demais cartões reajustam-se com feedback luminoso. O design modular garante consistência visual e deixa claro o impacto espiritual de cada escolha.
+            </p>
+          </div>
+          <div class="grid gap-4 text-sm text-slate-200/75">
+            <div class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-mint"></span>
+              <p>Inventário dispara alertas sutis ao detectar mudanças emocionais vindas da escuta ativa.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-amber"></span>
+              <p>Devocional destaca horário e clima espiritual do dia, preparando o coração com leveza.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-aqua"></span>
+              <p>Biblioteca usa gradientes para indicar novos conteúdos expandidos pela IA Sophia.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-archi-blush"></span>
+              <p>Jornada e diário compartilham badges neon quando há algo inspirado para celebrar com mentores.</p>
+            </div>
+          </div>
+        </article>
+
+        <div class="flex-1">
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div class="rounded-3xl bg-white/12 border border-white/15 backdrop-blur-xl p-6 shadow-[0_28px_60px_-20px_rgba(5,8,22,0.55)]">
+              <p class="text-[0.6rem] uppercase tracking-[0.4em] text-archi-iris">Inventário</p>
+              <h3 class="mt-3 text-xl font-semibold text-white/90">Estado espiritual atual</h3>
+              <p class="mt-3 text-sm text-slate-200/75 leading-relaxed">Dons ativos, desafios e frutos monitorados. O Orb acende em lilás quando identifica um novo ponto de atenção.</p>
+              <div class="mt-4 flex items-center justify-between text-[0.7rem] text-archi-iris">
+                <span>Atualizado · 3 dias</span>
+                <span class="px-3 py-1 rounded-full bg-archi-iris/15">Ver jornada</span>
+              </div>
+            </div>
+
+            <div class="rounded-3xl bg-white/12 border border-white/15 backdrop-blur-xl p-6 shadow-[0_28px_60px_-20px_rgba(5,8,22,0.55)]">
+              <p class="text-[0.6rem] uppercase tracking-[0.4em] text-archi-mint">Devocional</p>
+              <h3 class="mt-3 text-xl font-semibold text-white/90">Resumo, padrões e plano</h3>
+              <p class="mt-3 text-sm text-slate-200/75 leading-relaxed">Narrativa do dia com visual orgânico, mostrando transições de cor entre presença divina, padrões e próximos passos.</p>
+              <div class="mt-4 flex items-center justify-between text-[0.7rem] text-archi-mint">
+                <span>Pronto para 22h</span>
+                <span class="px-3 py-1 rounded-full bg-archi-mint/15">Acessar</span>
+              </div>
+            </div>
+
+            <div class="rounded-3xl bg-white/12 border border-white/15 backdrop-blur-xl p-6 shadow-[0_28px_60px_-20px_rgba(5,8,22,0.55)]">
+              <p class="text-[0.6rem] uppercase tracking-[0.4em] text-archi-aqua">Biblioteca</p>
+              <h3 class="mt-3 text-xl font-semibold text-white/90">Conteúdo personalizado</h3>
+              <p class="mt-3 text-sm text-slate-200/75 leading-relaxed">Livros, sermões, podcasts e exercícios com selo visual de relevância espiritual curado pela IA.</p>
+              <div class="mt-4 flex items-center justify-between text-[0.7rem] text-archi-aqua">
+                <span>3 novas recomendações</span>
+                <span class="px-3 py-1 rounded-full bg-archi-aqua/15">Explorar</span>
+              </div>
+            </div>
+
+            <div class="rounded-3xl bg-white/12 border border-white/15 backdrop-blur-xl p-6 shadow-[0_28px_60px_-20px_rgba(5,8,22,0.55)]">
+              <p class="text-[0.6rem] uppercase tracking-[0.4em] text-archi-blush">Jornada & Diário</p>
+              <h3 class="mt-3 text-xl font-semibold text-white/90">Progresso e memória</h3>
+              <p class="mt-3 text-sm text-slate-200/75 leading-relaxed">KPIs espirituais, marcos e registros ganham badges neon, prontos para compartilhar com mentores ou grupos da igreja.</p>
+              <div class="mt-4 flex items-center justify-between text-[0.7rem] text-archi-blush">
+                <span>Paz +12% · 4 marcos</span>
+                <span class="px-3 py-1 rounded-full bg-archi-blush/15">Continuar</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="interactive" class="scroll-mt-24">
+      <div class="flex flex-col gap-10 xl:flex-row xl:items-start">
+        <article class="flex-1 space-y-6">
+          <div class="space-y-3">
+            <p class="text-xs tracking-[0.38em] uppercase text-archi-aqua/80">Protótipo navegável</p>
+            <h2 class="text-2xl md:text-[2.4rem] font-display text-white">Simulação interativa das jornadas</h2>
+            <p class="text-slate-200/80 leading-relaxed">
+              Clique nos cartões para ver como o Sophia Orb adapta a jornada. A interação acontece dentro do mockup, sem trocar de página.
+            </p>
+          </div>
+          <ul class="grid gap-4 text-sm text-slate-200/75">
+            <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-archi-iris"></span><p>Estados dinâmicos: versículos, métricas e ações mudam conforme a jornada escolhida.</p></li>
+            <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-archi-mint"></span><p>Mostra o comportamento visual do Sophia Orb ao navegar entre inventário, devocional, escuta, biblioteca, jornada e diário.</p></li>
+            <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-archi-amber"></span><p>Útil para validação com stakeholders e lideranças: o protótipo roda direto no navegador.</p></li>
+          </ul>
+        </article>
+
+        <div class="flex-1 flex flex-col lg:flex-row gap-10 justify-center">
+          <div class="w-[320px] h-[640px] rounded-[40px] bg-white/10 border border-white/15 backdrop-blur-xl shadow-frame shadow-[0_35px_70px_-30px_rgba(15,23,42,0.55)] p-6 flex flex-col">
+            <header class="flex items-center justify-between text-[0.6rem] uppercase tracking-[0.38em] text-white/65 font-semibold">
+              <span>Menu Sophia</span>
+              <span class="px-3 py-1 rounded-full bg-white/10 border border-white/20">Explore</span>
+            </header>
+            <div class="mt-4 space-y-3 overflow-y-auto pr-1">
+              <button type="button" data-journey="inventario" class="journey-nav group w-full rounded-3xl border border-white/15 bg-white/5 backdrop-blur px-5 py-4 text-left transition-all duration-300 hover:border-archi-iris/60 hover:bg-archi-iris/10">
+                <div class="flex items-start gap-4">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-archi-iris via-archi-lilac to-archi-aqua text-white font-display text-sm">01</span>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between text-[0.55rem] uppercase tracking-[0.32em] text-white/55">
+                      <span>Inventário</span>
+                      <span>Atualizar</span>
+                    </div>
+                    <p class="mt-2 text-sm font-semibold text-white/90">Frutos e dons</p>
+                    <p class="mt-1 text-xs text-slate-200/70">Mapeie maturidade espiritual com Sophia.</p>
+                  </div>
+                </div>
+              </button>
+
+              <button type="button" data-journey="escuta" class="journey-nav group w-full rounded-3xl border border-white/15 bg-white/5 backdrop-blur px-5 py-4 text-left transition-all duration-300 hover:border-archi-aqua/60 hover:bg-archi-aqua/10">
+                <div class="flex items-start gap-4">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-archi-aqua via-archi-mint to-archi-iris text-white font-display text-sm">02</span>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between text-[0.55rem] uppercase tracking-[0.32em] text-white/55">
+                      <span>Escuta ativa</span>
+                      <span>2 insights</span>
+                    </div>
+                    <p class="mt-2 text-sm font-semibold text-white/90">Emoções e Palavra</p>
+                    <p class="mt-1 text-xs text-slate-200/70">Veja padrão emocional e recomendações.</p>
+                  </div>
+                </div>
+              </button>
+
+              <button type="button" data-journey="devocional" class="journey-nav group w-full rounded-3xl border border-white/15 bg-white/5 backdrop-blur px-5 py-4 text-left transition-all duration-300 hover:border-archi-mint/60 hover:bg-archi-mint/10">
+                <div class="flex items-start gap-4">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-archi-mint via-archi-iris to-archi-lilac text-white font-display text-sm">03</span>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between text-[0.55rem] uppercase tracking-[0.32em] text-white/55">
+                      <span>Devocional</span>
+                      <span>Hoje · 22h</span>
+                    </div>
+                    <p class="mt-2 text-sm font-semibold text-white/90">Resumo & plano</p>
+                    <p class="mt-1 text-xs text-slate-200/70">Confira narrativa do dia e próximos passos.</p>
+                  </div>
+                </div>
+              </button>
+
+              <button type="button" data-journey="biblioteca" class="journey-nav group w-full rounded-3xl border border-white/15 bg-white/5 backdrop-blur px-5 py-4 text-left transition-all duration-300 hover:border-archi-amber/60 hover:bg-archi-amber/10">
+                <div class="flex items-start gap-4">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-archi-amber via-archi-iris to-archi-aqua text-white font-display text-sm">04</span>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between text-[0.55rem] uppercase tracking-[0.32em] text-white/55">
+                      <span>Biblioteca</span>
+                      <span>3 novos</span>
+                    </div>
+                    <p class="mt-2 text-sm font-semibold text-white/90">Conteúdo vivo</p>
+                    <p class="mt-1 text-xs text-slate-200/70">Curadoria personalizada da IA Sophia.</p>
+                  </div>
+                </div>
+              </button>
+
+              <button type="button" data-journey="jornada" class="journey-nav group w-full rounded-3xl border border-white/15 bg-white/5 backdrop-blur px-5 py-4 text-left transition-all duration-300 hover:border-archi-lilac/60 hover:bg-archi-lilac/10">
+                <div class="flex items-start gap-4">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-archi-lilac via-archi-iris to-archi-blush text-white font-display text-sm">05</span>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between text-[0.55rem] uppercase tracking-[0.32em] text-white/55">
+                      <span>Jornada</span>
+                      <span>Paz +12%</span>
+                    </div>
+                    <p class="mt-2 text-sm font-semibold text-white/90">KPIs espirituais</p>
+                    <p class="mt-1 text-xs text-slate-200/70">Visualize progresso e marcos de fé.</p>
+                  </div>
+                </div>
+              </button>
+
+              <button type="button" data-journey="diario" class="journey-nav group w-full rounded-3xl border border-white/15 bg-white/5 backdrop-blur px-5 py-4 text-left transition-all duration-300 hover:border-archi-blush/60 hover:bg-archi-blush/10">
+                <div class="flex items-start gap-4">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-archi-blush via-archi-iris to-archi-aqua text-white font-display text-sm">06</span>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between text-[0.55rem] uppercase tracking-[0.32em] text-white/55">
+                      <span>Diário</span>
+                      <span>Registrar</span>
+                    </div>
+                    <p class="mt-2 text-sm font-semibold text-white/90">Memória de fé</p>
+                    <p class="mt-1 text-xs text-slate-200/70">Grave gratidões, respostas e áudios.</p>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <div id="journeyScreen" class="relative w-[320px] h-[640px] rounded-[40px] border border-white/15 backdrop-blur-2xl shadow-frame shadow-[0_38px_80px_-35px_rgba(4,9,30,0.7)] overflow-hidden">
+            <div id="journeyBackground" class="absolute inset-0 rounded-[32px] bg-gradient-to-br from-archi-iris/70 via-archi-lilac/60 to-archi-aqua/70 opacity-90 blur-sm"></div>
+            <div class="relative z-10 h-full flex flex-col gap-5 p-6">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <p id="journeyLabel" class="text-[0.6rem] uppercase tracking-[0.4em] font-semibold text-archi-iris">Inventário espiritual</p>
+                  <span id="journeyBadge" class="px-3 py-1 rounded-full text-[0.55rem] uppercase tracking-[0.35em] font-semibold backdrop-blur border border-archi-iris/40 bg-archi-iris/20 text-archi-iris/90">Atualizar agora</span>
+                </div>
+                <h3 id="journeyTitle" class="text-2xl font-display text-white/95 leading-tight">Fruto do Espírito em foco</h3>
+                <p id="journeySummary" class="text-sm text-white/80 leading-relaxed">Mapeie dons e desafios atuais para alinhar hábitos espirituais com a direção de Deus.</p>
+              </div>
+
+              <div class="relative flex justify-center pt-2 pb-4">
+                <div class="relative">
+                  <div id="journeyOrbHalo" class="absolute -inset-6 rounded-full bg-archi-iris/30 blur-3xl transition-all duration-500"></div>
+                  <div id="journeyOrb" class="relative flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-archi-iris via-archi-lilac to-archi-aqua text-white font-display text-xl shadow-glow transition-transform duration-500">
+                    <span id="journeyOrbText" class="tracking-[0.38em] text-[0.7rem] uppercase">INV</span>
+                  </div>
+                  <span id="journeyOrbCaption" class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[0.55rem] uppercase tracking-[0.4em] text-white/60">Inventário</span>
+                </div>
+              </div>
+
+              <div class="space-y-5 text-sm">
+                <div class="space-y-1">
+                  <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/60">Passagem-chave</p>
+                  <p id="journeyVerse" class="text-white/90 leading-relaxed">“O fruto do Espírito é amor, alegria, paz, paciência, amabilidade, bondade, fidelidade.”</p>
+                  <span id="journeyReference" class="text-xs text-white/50">Gálatas 5:22-23 · ARA</span>
+                </div>
+                <div>
+                  <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/60 mb-3">Indicadores</p>
+                  <ul id="journeyMetrics" class="space-y-2"></ul>
+                </div>
+                <div id="journeyHighlightCard" class="rounded-3xl border border-white/20 bg-white/10 p-4 space-y-2">
+                  <p id="journeyHighlightTitle" class="text-[0.6rem] uppercase tracking-[0.35em] text-white/60">Direção Sophia</p>
+                  <p id="journeyHighlightText" class="text-sm text-white/85 leading-relaxed">Reserve 5 minutos de silêncio e medite em Tiago 1:19-20 antes da reunião de equipe.</p>
+                </div>
+              </div>
+
+              <div class="mt-auto space-y-3">
+                <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/60">Próximas ações</p>
+                <div id="journeyActions" class="flex flex-wrap gap-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="flows" class="scroll-mt-24">
+      <div class="rounded-[36px] bg-white/12 border border-white/15 backdrop-blur-2xl shadow-[0_40px_110px_-45px_rgba(5,8,22,0.7)] p-10 space-y-10">
+        <div class="max-w-2xl space-y-3">
+          <p class="text-xs tracking-[0.4em] uppercase text-archi-aqua/80">Experiências guiadas</p>
+          <h2 class="text-2xl md:text-[2.4rem] font-display text-white">Movimentos do Sophia Orb</h2>
+          <p class="text-slate-200/80 leading-relaxed">
+            O botão central mistura feedback visual neon e microinterações suaves. Cada gesto ativa uma camada espiritual diferente, mantendo a navegação 100% guiada pela presença de Deus.
+          </p>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-3 text-sm text-slate-200/80">
+          <div class="rounded-3xl border border-archi-lilac/40 bg-archi-lilac/10 p-6 space-y-4 backdrop-blur">
+            <h3 class="text-xl font-semibold text-archi-lilac">Toque rápido</h3>
+            <p>Abre o menu orbital com cartões das jornadas. Sophia destaca a prioridade do momento.</p>
+            <ul class="space-y-2 text-xs text-archi-lilac/80">
+              <li>• Sugestões priorizadas pela IA</li>
+              <li>• Destaque para devocional agendado</li>
+              <li>• Ação “Deixe Sophia escolher”</li>
+            </ul>
+          </div>
+          <div class="rounded-3xl border border-archi-mint/40 bg-archi-mint/10 p-6 space-y-4 backdrop-blur">
+            <h3 class="text-xl font-semibold text-archi-mint">Manter pressionado</h3>
+            <p>Ativa “Momento guiado”: oração, respiração ou leitura com áudio ambiente e visual calmante.</p>
+            <ul class="space-y-2 text-xs text-archi-mint/80">
+              <li>• Ideal para crises imediatas</li>
+              <li>• Conteúdo multimídia contextual</li>
+              <li>• Acesso rápido a mentores</li>
+            </ul>
+          </div>
+          <div class="rounded-3xl border border-archi-aqua/40 bg-archi-aqua/10 p-6 space-y-4 backdrop-blur">
+            <h3 class="text-xl font-semibold text-archi-aqua">Arrastar</h3>
+            <p>Permite deslizar entre jornadas com feedback háptico e indicadores de progresso iluminados.</p>
+            <ul class="space-y-2 text-xs text-archi-aqua/80">
+              <li>• Visualização circular das rotas</li>
+              <li>• Sugerido pela sequência espiritual</li>
+              <li>• Possibilidade de pin favoritos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="relative z-10 max-w-6xl mx-auto px-6 pb-12 text-sm text-white/50">
+    <div class="h-px bg-white/20 mb-6"></div>
+    <p>Mockup conceitual · Junho 2024 · ARCHI / Sophia Engine · Hub central com estética neon e botão Sophia Orb.</p>
+  </footer>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const journeyData = {
+
+        inventario: {
+          label: 'Inventário espiritual',
+          title: 'Fruto do Espírito em foco',
+          summary: 'Mapeie dons e desafios atuais para alinhar hábitos espirituais com a direção de Deus.',
+          verse: '“O fruto do Espírito é amor, alegria, paz, paciência, amabilidade, bondade, fidelidade.”',
+          reference: 'Gálatas 5:22-23 · ARA',
+          metrics: [
+            'Domínio próprio em progresso • 68%',
+            'Dons ativos confirmados: Ensino e Serviço',
+            'Check-in com mentor agendado às 19h'
+          ],
+          actions: [
+            'Retomar etapa 3',
+            'Ver insights Sophia',
+            'Registrar fruto vivido'
+          ],
+          highlightTitle: 'Direção Sophia',
+          highlight: 'Reserve 5 minutos de silêncio e medite em Tiago 1:19-20 antes da reunião de equipe.',
+          gradient: 'from-archi-iris/70 via-archi-lilac/60 to-archi-aqua/70',
+          accent: 'text-archi-iris',
+          bullet: 'bg-archi-iris',
+          chipClass: 'border-archi-iris/50 bg-archi-iris/20 text-archi-iris/90',
+          badge: 'Atualizar agora',
+          badgeClass: 'border border-archi-iris/40 bg-archi-iris/20 text-archi-iris/90',
+          orbGradient: 'from-archi-iris via-archi-lilac to-archi-aqua',
+          orbHalo: 'bg-archi-iris/30',
+          orbLabel: 'INV',
+          orbCaption: 'Inventário',
+          heroOffset: [0, -32]
+        },
+        escuta: {
+          label: 'Escuta ativa',
+          title: 'Sophia está ouvindo com cuidado',
+          summary: 'O modo escuta detectou emoções de foco e leve tensão. Sophia sugere respiração guiada e versículos de descanso.',
+          verse: '“Lancem sobre Ele toda a sua ansiedade, porque Ele tem cuidado de vocês.”',
+          reference: '1 Pedro 5:7 · ARA',
+          metrics: [
+            'Emoção predominante: foco • 62%',
+            'Palavras-chave: entrega, prazo, confiança',
+            'Processamento local habilitado'
+          ],
+          actions: [
+            'Pausar escuta por 10 min',
+            'Ouvir oração guiada',
+            'Registrar sentimento manual'
+          ],
+          highlightTitle: 'Respiração sugerida',
+          highlight: 'Inspire contando até 4, segure por 4, expire por 6 enquanto entrega suas preocupações ao Senhor.',
+          gradient: 'from-archi-aqua/70 via-archi-mint/60 to-archi-iris/60',
+          accent: 'text-archi-aqua',
+          bullet: 'bg-archi-aqua',
+          chipClass: 'border-archi-aqua/50 bg-archi-aqua/20 text-archi-aqua/90',
+          badge: '2 insights novos',
+          badgeClass: 'border border-archi-aqua/40 bg-archi-aqua/20 text-archi-aqua/90',
+          orbGradient: 'from-archi-aqua via-archi-mint to-archi-iris',
+          orbHalo: 'bg-archi-aqua/30',
+          orbLabel: 'ESC',
+          orbCaption: 'Escuta',
+          heroOffset: [42, -26]
+        },
+        devocional: {
+          label: 'Devocional diário',
+          title: 'Resumo do dia com presença de Deus',
+          summary: 'Sophia preparou um devocional que celebra os avanços e aponta práticas para amanhã.',
+          verse: '“Permanecei em mim, e eu permanecerei em vós.”',
+          reference: 'João 15:4 · ARA',
+          metrics: [
+            'Transformação emocional: estresse 18% → calma 62%',
+            'Passagem-base: Tiago 1:19-20',
+            'Plano de gratidão registrado'
+          ],
+          actions: [
+            'Iniciar devocional agora',
+            'Salvar para 22h',
+            'Compartilhar com mentor'
+          ],
+          highlightTitle: 'Momento de gratidão',
+          highlight: 'Liste três maneiras como Deus te sustentou hoje e ore entregando a agenda de amanhã.',
+          gradient: 'from-archi-mint/70 via-archi-iris/60 to-archi-lilac/60',
+          accent: 'text-archi-mint',
+          bullet: 'bg-archi-mint',
+          chipClass: 'border-archi-mint/50 bg-archi-mint/20 text-archi-mint/90',
+          badge: 'Hoje · 22h',
+          badgeClass: 'border border-archi-mint/40 bg-archi-mint/20 text-archi-mint/90',
+          orbGradient: 'from-archi-mint via-archi-iris to-archi-lilac',
+          orbHalo: 'bg-archi-mint/30',
+          orbLabel: 'DEV',
+          orbCaption: 'Devocional',
+          heroOffset: [54, 18]
+        },
+        biblioteca: {
+          label: 'Biblioteca dinâmica',
+          title: 'Conteúdo curado para seu momento',
+          summary: 'Novos materiais inspirados pelas experiências recentes foram adicionados à sua fila.',
+          verse: '“Lâmpada para os meus pés é a tua palavra e luz para o meu caminho.”',
+          reference: 'Salmo 119:105 · ARA',
+          metrics: [
+            '3 novidades: sermão, podcast e artigo',
+            'Tema destaque: confiança e entrega',
+            'Tempo médio sugerido: 18 minutos'
+          ],
+          actions: [
+            'Ouvir podcast “Oração que transforma”',
+            'Salvar sermão “Viver pela fé”',
+            'Adicionar ao plano de estudo'
+          ],
+          highlightTitle: 'Sugestão Sophia',
+          highlight: 'Comece pelo artigo “Construindo gratidão” e registre o insight no diário em seguida.',
+          gradient: 'from-archi-amber/60 via-archi-iris/60 to-archi-aqua/60',
+          accent: 'text-archi-amber',
+          bullet: 'bg-archi-amber',
+          chipClass: 'border-archi-amber/50 bg-archi-amber/20 text-archi-amber/90',
+          badge: '3 novos itens',
+          badgeClass: 'border border-archi-amber/40 bg-archi-amber/20 text-archi-amber/90',
+          orbGradient: 'from-archi-amber via-archi-iris to-archi-aqua',
+          orbHalo: 'bg-archi-amber/30',
+          orbLabel: 'BIB',
+          orbCaption: 'Biblioteca',
+          heroOffset: [0, 40]
+        },
+        jornada: {
+          label: 'Jornada espiritual',
+          title: 'KPIs de fé e marcos vivos',
+          summary: 'Acompanhe seus frutos espirituais, marcos celebrados e recomendações para continuar crescendo.',
+          verse: '“Crescei na graça e no conhecimento de nosso Senhor e Salvador Jesus Cristo.”',
+          reference: '2 Pedro 3:18 · ARA',
+          metrics: [
+            'Consistência devocional: 84%',
+            'Foco atual: disciplina de oração',
+            'Marcos recentes: mentoria iniciada, jejum coletivo'
+          ],
+          actions: [
+            'Ver detalhes do KPI',
+            'Registrar novo marco',
+            'Compartilhar com mentor'
+          ],
+          highlightTitle: 'Próximo passo',
+          highlight: 'Convide um amigo para celebrar a semana 12 e compartilhar um testemunho de transformação.',
+          gradient: 'from-archi-lilac/60 via-archi-iris/60 to-archi-blush/60',
+          accent: 'text-archi-lilac',
+          bullet: 'bg-archi-lilac',
+          chipClass: 'border-archi-lilac/50 bg-archi-lilac/20 text-archi-lilac/90',
+          badge: 'Paz +12%',
+          badgeClass: 'border border-archi-lilac/40 bg-archi-lilac/20 text-archi-lilac/90',
+          orbGradient: 'from-archi-lilac via-archi-iris to-archi-blush',
+          orbHalo: 'bg-archi-lilac/30',
+          orbLabel: 'JRN',
+          orbCaption: 'Jornada',
+          heroOffset: [-52, 20]
+        },
+        diario: {
+          label: 'Diário de reflexão',
+          title: 'Memória viva da caminhada',
+          summary: 'Registre respostas de oração, gratidão e aprendizados diários com o suporte da IA Sophia.',
+          verse: '“Quero trazer à memória o que me pode dar esperança.”',
+          reference: 'Lamentações 3:21 · NVI',
+          metrics: [
+            'Entrada mais recente: 12:30 · Resposta de oração',
+            'Etiquetas automáticas: confiança, entrega',
+            'Sugestão de áudio: oração de gratidão'
+          ],
+          actions: [
+            'Registrar nova entrada',
+            'Adicionar áudio de testemunho',
+            'Enviar resumo ao mentor'
+          ],
+          highlightTitle: 'Reflexão guiada',
+          highlight: 'Escreva três sinais do cuidado de Deus hoje e compartilhe com seu mentor semanal.',
+          gradient: 'from-archi-blush/60 via-archi-iris/60 to-archi-aqua/60',
+          accent: 'text-archi-blush',
+          bullet: 'bg-archi-blush',
+          chipClass: 'border-archi-blush/50 bg-archi-blush/20 text-archi-blush/90',
+          badge: 'Registrar agora',
+          badgeClass: 'border border-archi-blush/40 bg-archi-blush/20 text-archi-blush/90',
+          orbGradient: 'from-archi-blush via-archi-iris to-archi-aqua',
+          orbHalo: 'bg-archi-blush/30',
+          orbLabel: 'DIA',
+          orbCaption: 'Diário',
+          heroOffset: [-46, -22]
+        }
+      };
+
+      let currentJourneyKey = null;
+      let currentHeroOffset = [0, 0];
+      let isDragging = false;
+      let dragPointerId = null;
+      let dragStart = { x: 0, y: 0 };
+      let heroDragBase = [0, 0];
+      let dragTargetKey = null;
+
+      const navButtons = Array.from(document.querySelectorAll('[data-journey]'));
+      const journeyLabel = document.getElementById('journeyLabel');
+      const journeyTitle = document.getElementById('journeyTitle');
+      const journeySummary = document.getElementById('journeySummary');
+      const journeyVerse = document.getElementById('journeyVerse');
+      const journeyReference = document.getElementById('journeyReference');
+      const journeyMetrics = document.getElementById('journeyMetrics');
+      const journeyActions = document.getElementById('journeyActions');
+      const journeyBackground = document.getElementById('journeyBackground');
+      const journeyBadge = document.getElementById('journeyBadge');
+      const journeyHighlightTitle = document.getElementById('journeyHighlightTitle');
+      const journeyHighlightText = document.getElementById('journeyHighlightText');
+      const heroOrb = document.getElementById('heroOrb');
+      const heroOrbText = document.getElementById('heroOrbText');
+      const heroOrbCaption = document.getElementById('heroOrbCaption');
+      const heroOrbHalo = document.getElementById('heroOrbHalo');
+      const heroOrbGlow = document.getElementById('heroOrbGlow');
+      const heroOrbWrapper = document.getElementById('heroOrbWrapper');
+      const journeyOrb = document.getElementById('journeyOrb');
+      const journeyOrbText = document.getElementById('journeyOrbText');
+      const journeyOrbHalo = document.getElementById('journeyOrbHalo');
+      const journeyOrbCaption = document.getElementById('journeyOrbCaption');
+
+      const orbBaseClass = 'relative flex h-28 w-28 items-center justify-center rounded-full text-white font-display text-xl shadow-glow transition-transform duration-500';
+      const orbTextBaseClass = 'tracking-[0.38em] text-[0.7rem] uppercase';
+      const orbCaptionBaseClass = 'absolute -bottom-6 left-1/2 -translate-x-1/2 text-[0.55rem] uppercase tracking-[0.4em] text-white/60';
+      const haloBaseClass = 'absolute -inset-6 rounded-full blur-3xl transition-all duration-500';
+
+      const heroOrbBaseClass = 'relative flex flex-col items-center justify-center w-44 h-44 rounded-full text-white shadow-glow transition-transform duration-500 hover:scale-105 bg-gradient-to-br';
+      const heroOrbTextBaseClass = 'text-[2.8rem] font-display leading-none drop-shadow-neon';
+      const heroOrbCaptionBaseClass = 'mt-3 text-[0.6rem] tracking-[0.38em] uppercase text-white/80';
+      const heroHaloBaseClass = 'absolute inset-0 m-auto w-52 h-52 rounded-full blur-3xl transition-all duration-500';
+      const heroGlowBaseClass = 'absolute inset-0 m-auto w-40 h-40 rounded-full blur-xl transition-all duration-500';
+      const heroWrapperBaseClass = 'relative flex items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]';
+
+      const baseNavClasses = ['journey-nav', 'group', 'w-full', 'rounded-3xl', 'border', 'border-white/15', 'bg-white/5', 'backdrop-blur', 'px-5', 'py-4', 'text-left', 'transition-all', 'duration-300'];
+      const activeNavClasses = ['border-archi-iris/70', 'bg-white/15', 'shadow-[0_25px_45px_-25px_rgba(99,102,241,0.6)]'];
+
+      const labelBaseClass = 'text-[0.6rem] uppercase tracking-[0.4em] font-semibold';
+      const badgeBaseClass = 'px-3 py-1 rounded-full text-[0.55rem] uppercase tracking-[0.35em] font-semibold backdrop-blur';
+      const chipBaseClass = 'px-4 py-2 rounded-full text-[0.7rem] font-medium transition-colors duration-200 border bg-white/10 text-white/85';
+      const bulletBaseClass = 'inline-block h-2 w-2 rounded-full';
+
+      const setHeroTransitions = (enabled) => {
+        const value = enabled ? '' : 'none';
+        if (heroOrbWrapper) heroOrbWrapper.style.transition = value;
+        if (heroOrb) heroOrb.style.transition = value;
+        if (heroOrbHalo) heroOrbHalo.style.transition = value;
+        if (heroOrbGlow) heroOrbGlow.style.transition = value;
+      };
+
+      const resetButtonClasses = (button) => {
+        button.classList.remove(...activeNavClasses);
+        baseNavClasses.forEach((cls) => {
+          if (!button.classList.contains(cls)) {
+            button.classList.add(cls);
+          }
+        });
+      };
+
+      const activateButton = (key) => {
+        navButtons.forEach((button) => {
+          if (button.dataset.journey === key) {
+            button.classList.add(...activeNavClasses);
+            button.classList.remove('border-white/15', 'bg-white/5');
+          } else {
+            resetButtonClasses(button);
+          }
+        });
+      };
+
+      const renderJourney = (key) => {
+        const data = journeyData[key];
+        if (!data || !journeyLabel || !journeyTitle) return;
+
+        currentJourneyKey = key;
+        const targetOffset = data.heroOffset || [0, 0];
+        currentHeroOffset = [...targetOffset];
+
+        journeyLabel.textContent = data.label;
+        journeyLabel.className = `${labelBaseClass} ${data.accent || ''}`.trim();
+
+        journeyTitle.textContent = data.title;
+        journeySummary.textContent = data.summary;
+        journeyVerse.textContent = data.verse;
+        journeyReference.textContent = data.reference;
+
+        if (journeyBadge) {
+          journeyBadge.textContent = data.badge || '';
+          journeyBadge.className = `${badgeBaseClass} ${data.badgeClass || ''}`.trim();
+        }
+
+        if (journeyHighlightTitle) {
+          journeyHighlightTitle.textContent = data.highlightTitle || 'Direção Sophia';
+        }
+        if (journeyHighlightText) {
+          journeyHighlightText.textContent = data.highlight || '';
+        }
+
+        if (journeyBackground) {
+          journeyBackground.className = `absolute inset-0 rounded-[32px] bg-gradient-to-br ${data.gradient} opacity-90 blur-sm`;
+        }
+
+        if (journeyOrb) {
+          journeyOrb.className = `${orbBaseClass} bg-gradient-to-br ${data.orbGradient || 'from-archi-iris via-archi-lilac to-archi-aqua'}`.trim();
+          journeyOrb.classList.remove('animate-orb-pop');
+          void journeyOrb.offsetWidth;
+          journeyOrb.classList.add('animate-orb-pop');
+        }
+
+        if (journeyOrbText) {
+          journeyOrbText.textContent = (data.orbLabel || 'SOPHIA');
+          journeyOrbText.className = `${orbTextBaseClass}`.trim();
+        }
+
+        if (journeyOrbHalo) {
+          journeyOrbHalo.className = `${haloBaseClass} ${data.orbHalo || 'bg-white/25'}`.trim();
+        }
+
+        if (journeyOrbCaption) {
+          journeyOrbCaption.textContent = data.orbCaption || data.label || 'Sophia Orb';
+          journeyOrbCaption.className = orbCaptionBaseClass;
+        }
+
+        if (heroOrb) {
+          heroOrb.className = `${heroOrbBaseClass} ${data.orbGradient || 'from-archi-iris via-archi-lilac to-archi-aqua'}`.trim();
+          if (!isDragging) {
+            heroOrb.classList.remove('animate-orb-pop');
+            void heroOrb.offsetWidth;
+            heroOrb.classList.add('animate-orb-pop');
+          }
+        }
+
+        if (heroOrbText) {
+          heroOrbText.textContent = data.orbLabel || 'SOPHIA';
+          heroOrbText.className = heroOrbTextBaseClass;
+        }
+
+        if (heroOrbWrapper) {
+          heroOrbWrapper.className = heroWrapperBaseClass;
+          if (!isDragging) {
+            heroOrbWrapper.style.transition = '';
+            heroOrbWrapper.style.transform = `translate3d(${targetOffset[0]}px, ${targetOffset[1]}px, 0)`;
+          }
+        }
+
+        if (heroOrbHalo) {
+          heroOrbHalo.className = `${heroHaloBaseClass} ${data.orbHalo || 'bg-white/25'}`.trim();
+          if (!isDragging) {
+            heroOrbHalo.style.transition = '';
+          }
+        }
+
+        if (heroOrbGlow) {
+          heroOrbGlow.className = `${heroGlowBaseClass} bg-gradient-to-br ${data.orbGradient || 'from-archi-iris via-archi-lilac to-archi-aqua'} opacity-80`.trim();
+          if (!isDragging) {
+            heroOrbGlow.style.transition = '';
+          }
+        }
+
+        if (journeyMetrics) {
+          journeyMetrics.innerHTML = '';
+          (data.metrics || []).forEach((item) => {
+            const li = document.createElement('li');
+            li.className = 'flex items-start gap-2 text-sm text-white/80';
+            const indicator = document.createElement('span');
+            indicator.className = `${bulletBaseClass} ${data.bullet || 'bg-white/70'}`.trim();
+            const text = document.createElement('span');
+            text.textContent = item;
+            li.appendChild(indicator);
+            li.appendChild(text);
+            journeyMetrics.appendChild(li);
+          });
+        }
+
+        if (journeyActions) {
+          journeyActions.innerHTML = '';
+          (data.actions || []).forEach((action) => {
+            const span = document.createElement('span');
+            span.className = `${chipBaseClass} ${data.chipClass || ''}`.trim();
+            span.textContent = action;
+            journeyActions.appendChild(span);
+          });
+        }
+      };
+
+      const findNearestJourney = (x, y) => {
+        let nearestKey = currentJourneyKey;
+        let shortest = Infinity;
+        navButtons.forEach((button) => {
+          const rect = button.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          const distance = Math.hypot(centerX - x, centerY - y);
+          if (distance < shortest) {
+            shortest = distance;
+            nearestKey = button.dataset.journey;
+          }
+        });
+        return nearestKey;
+      };
+
+      const addDragListeners = () => {
+        window.addEventListener('pointermove', handleHeroPointerMove, false);
+        window.addEventListener('pointerup', handleHeroPointerUp, false);
+        window.addEventListener('pointercancel', handleHeroPointerCancel, false);
+      };
+
+      const removeDragListeners = () => {
+        window.removeEventListener('pointermove', handleHeroPointerMove, false);
+        window.removeEventListener('pointerup', handleHeroPointerUp, false);
+        window.removeEventListener('pointercancel', handleHeroPointerCancel, false);
+      };
+
+      const finishDrag = (finalKey) => {
+        removeDragListeners();
+        setHeroTransitions(true);
+        isDragging = false;
+        dragPointerId = null;
+        heroOrb.classList.remove('dragging');
+        dragTargetKey = null;
+        if (typeof finalKey === 'string') {
+          activateButton(finalKey);
+          renderJourney(finalKey);
+        } else if (currentJourneyKey) {
+          renderJourney(currentJourneyKey);
+        }
+      };
+
+      const handleHeroPointerDown = (event) => {
+        if (!heroOrbWrapper || !heroOrb) return;
+        event.preventDefault();
+        isDragging = true;
+        dragPointerId = event.pointerId ?? 0;
+        dragStart = { x: event.clientX, y: event.clientY };
+        heroDragBase = [...currentHeroOffset];
+        dragTargetKey = currentJourneyKey;
+        setHeroTransitions(false);
+        heroOrb.classList.add('dragging');
+        heroOrbWrapper.style.transform = `translate3d(${heroDragBase[0]}px, ${heroDragBase[1]}px, 0)`;
+        addDragListeners();
+      };
+
+      const handleHeroPointerMove = (event) => {
+        if (!isDragging || (event.pointerId ?? 0) !== dragPointerId || !heroOrbWrapper) return;
+        event.preventDefault();
+        const deltaX = event.clientX - dragStart.x;
+        const deltaY = event.clientY - dragStart.y;
+        const newOffset = [heroDragBase[0] + deltaX, heroDragBase[1] + deltaY];
+        heroOrbWrapper.style.transform = `translate3d(${newOffset[0]}px, ${newOffset[1]}px, 0)`;
+        currentHeroOffset = [...newOffset];
+
+        const rect = heroOrbWrapper.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const nearestKey = findNearestJourney(centerX, centerY);
+        if (nearestKey && nearestKey !== dragTargetKey) {
+          dragTargetKey = nearestKey;
+          activateButton(nearestKey);
+        }
+      };
+
+      const handleHeroPointerUp = (event) => {
+        if (!isDragging || (event.pointerId ?? 0) !== dragPointerId) return;
+        event.preventDefault();
+        const finalKey = dragTargetKey || currentJourneyKey;
+        finishDrag(finalKey);
+      };
+
+      const handleHeroPointerCancel = (event) => {
+        if (!isDragging || (event.pointerId ?? 0) !== dragPointerId) return;
+        finishDrag(currentJourneyKey);
+      };
+
+      if (heroOrb) {
+        heroOrb.addEventListener('pointerdown', handleHeroPointerDown);
+      }
+      if (heroOrbWrapper) {
+        heroOrbWrapper.addEventListener('pointerdown', (event) => {
+          if (event.target !== heroOrb) {
+            handleHeroPointerDown(event);
+          }
+        });
+      }
+
+      navButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const key = button.dataset.journey;
+          activateButton(key);
+          renderJourney(key);
+        });
+      });
+
+      const defaultKey = (navButtons[0] && navButtons[0].dataset.journey) || 'inventario';
+      activateButton(defaultKey);
+      renderJourney(defaultKey);
+    });
+  </script>
+</body>
+</html>
 
