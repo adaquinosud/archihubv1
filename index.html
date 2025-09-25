@@ -691,14 +691,6 @@
         }
       };
 
-      let currentJourneyKey = null;
-      let currentHeroOffset = [0, 0];
-      let isDragging = false;
-      let dragPointerId = null;
-      let dragStart = { x: 0, y: 0 };
-      let heroDragBase = [0, 0];
-      let dragTargetKey = null;
-
       const navButtons = Array.from(document.querySelectorAll('[data-journey]'));
       const journeyLabel = document.getElementById('journeyLabel');
       const journeyTitle = document.getElementById('journeyTitle');
@@ -711,12 +703,14 @@
       const journeyBadge = document.getElementById('journeyBadge');
       const journeyHighlightTitle = document.getElementById('journeyHighlightTitle');
       const journeyHighlightText = document.getElementById('journeyHighlightText');
+
       const heroOrb = document.getElementById('heroOrb');
       const heroOrbText = document.getElementById('heroOrbText');
       const heroOrbCaption = document.getElementById('heroOrbCaption');
       const heroOrbHalo = document.getElementById('heroOrbHalo');
       const heroOrbGlow = document.getElementById('heroOrbGlow');
       const heroOrbWrapper = document.getElementById('heroOrbWrapper');
+
       const journeyOrb = document.getElementById('journeyOrb');
       const journeyOrbText = document.getElementById('journeyOrbText');
       const journeyOrbHalo = document.getElementById('journeyOrbHalo');
@@ -736,11 +730,18 @@
 
       const baseNavClasses = ['journey-nav', 'group', 'w-full', 'rounded-3xl', 'border', 'border-white/15', 'bg-white/5', 'backdrop-blur', 'px-5', 'py-4', 'text-left', 'transition-all', 'duration-300'];
       const activeNavClasses = ['border-archi-iris/70', 'bg-white/15', 'shadow-[0_25px_45px_-25px_rgba(99,102,241,0.6)]'];
-
       const labelBaseClass = 'text-[0.6rem] uppercase tracking-[0.4em] font-semibold';
       const badgeBaseClass = 'px-3 py-1 rounded-full text-[0.55rem] uppercase tracking-[0.35em] font-semibold backdrop-blur';
       const chipBaseClass = 'px-4 py-2 rounded-full text-[0.7rem] font-medium transition-colors duration-200 border bg-white/10 text-white/85';
       const bulletBaseClass = 'inline-block h-2 w-2 rounded-full';
+
+      let currentJourneyKey = null;
+      let currentHeroOffset = [0, 0];
+      let isDragging = false;
+      let dragPointerId = null;
+      let dragStart = { x: 0, y: 0 };
+      let heroDragBase = [0, 0];
+      let dragTargetKey = null;
 
       const setHeroTransitions = (enabled) => {
         const value = enabled ? '' : 'none';
@@ -804,13 +805,15 @@
 
         if (journeyOrb) {
           journeyOrb.className = `${orbBaseClass} bg-gradient-to-br ${data.orbGradient || 'from-archi-iris via-archi-lilac to-archi-aqua'}`.trim();
-          journeyOrb.classList.remove('animate-orb-pop');
-          void journeyOrb.offsetWidth;
-          journeyOrb.classList.add('animate-orb-pop');
+          if (!isDragging) {
+            journeyOrb.classList.remove('animate-orb-pop');
+            void journeyOrb.offsetWidth;
+            journeyOrb.classList.add('animate-orb-pop');
+          }
         }
 
         if (journeyOrbText) {
-          journeyOrbText.textContent = (data.orbLabel || 'SOPHIA');
+          journeyOrbText.textContent = data.orbLabel || 'SOPHIA';
           journeyOrbText.className = `${orbTextBaseClass}`.trim();
         }
 
@@ -837,26 +840,19 @@
           heroOrbText.className = heroOrbTextBaseClass;
         }
 
-        if (heroOrbWrapper) {
+        if (heroOrbWrapper && !isDragging) {
           heroOrbWrapper.className = heroWrapperBaseClass;
-          if (!isDragging) {
-            heroOrbWrapper.style.transition = '';
-            heroOrbWrapper.style.transform = `translate3d(${targetOffset[0]}px, ${targetOffset[1]}px, 0)`;
-          }
+          heroOrbWrapper.style.transform = `translate3d(${targetOffset[0]}px, ${targetOffset[1]}px, 0)`;
         }
 
         if (heroOrbHalo) {
           heroOrbHalo.className = `${heroHaloBaseClass} ${data.orbHalo || 'bg-white/25'}`.trim();
-          if (!isDragging) {
-            heroOrbHalo.style.transition = '';
-          }
+          if (!isDragging) heroOrbHalo.style.transition = '';
         }
 
         if (heroOrbGlow) {
           heroOrbGlow.className = `${heroGlowBaseClass} bg-gradient-to-br ${data.orbGradient || 'from-archi-iris via-archi-lilac to-archi-aqua'} opacity-80`.trim();
-          if (!isDragging) {
-            heroOrbGlow.style.transition = '';
-          }
+          if (!isDragging) heroOrbGlow.style.transition = '';
         }
 
         if (journeyMetrics) {
@@ -866,10 +862,10 @@
             li.className = 'flex items-start gap-2 text-sm text-white/80';
             const indicator = document.createElement('span');
             indicator.className = `${bulletBaseClass} ${data.bullet || 'bg-white/70'}`.trim();
-            const text = document.createElement('span');
-            text.textContent = item;
+            const textNode = document.createElement('span');
+            textNode.textContent = item;
             li.appendChild(indicator);
-            li.appendChild(text);
+            li.appendChild(textNode);
             journeyMetrics.appendChild(li);
           });
         }
@@ -901,52 +897,21 @@
         return nearestKey;
       };
 
-      const addDragListeners = () => {
-        window.addEventListener('pointermove', handleHeroPointerMove, false);
-        window.addEventListener('pointerup', handleHeroPointerUp, false);
-        window.addEventListener('pointercancel', handleHeroPointerCancel, false);
-      };
-
-      const removeDragListeners = () => {
-        window.removeEventListener('pointermove', handleHeroPointerMove, false);
-        window.removeEventListener('pointerup', handleHeroPointerUp, false);
-        window.removeEventListener('pointercancel', handleHeroPointerCancel, false);
-      };
-
-      const finishDrag = (finalKey) => {
-        removeDragListeners();
-        setHeroTransitions(true);
-        isDragging = false;
-        dragPointerId = null;
-        heroOrb.classList.remove('dragging');
-        dragTargetKey = null;
-        if (typeof finalKey === 'string') {
-          activateButton(finalKey);
-          renderJourney(finalKey);
-        } else if (currentJourneyKey) {
-          renderJourney(currentJourneyKey);
-        }
-      };
-
-      const handleHeroPointerDown = (event) => {
+      const startHeroDrag = (clientX, clientY) => {
         if (!heroOrbWrapper || !heroOrb) return;
-        event.preventDefault();
         isDragging = true;
-        dragPointerId = event.pointerId ?? 0;
-        dragStart = { x: event.clientX, y: event.clientY };
+        dragStart = { x: clientX, y: clientY };
         heroDragBase = [...currentHeroOffset];
         dragTargetKey = currentJourneyKey;
         setHeroTransitions(false);
         heroOrb.classList.add('dragging');
         heroOrbWrapper.style.transform = `translate3d(${heroDragBase[0]}px, ${heroDragBase[1]}px, 0)`;
-        addDragListeners();
       };
 
-      const handleHeroPointerMove = (event) => {
-        if (!isDragging || (event.pointerId ?? 0) !== dragPointerId || !heroOrbWrapper) return;
-        event.preventDefault();
-        const deltaX = event.clientX - dragStart.x;
-        const deltaY = event.clientY - dragStart.y;
+      const updateHeroDrag = (clientX, clientY) => {
+        if (!isDragging || !heroOrbWrapper) return;
+        const deltaX = clientX - dragStart.x;
+        const deltaY = clientY - dragStart.y;
         const newOffset = [heroDragBase[0] + deltaX, heroDragBase[1] + deltaY];
         heroOrbWrapper.style.transform = `translate3d(${newOffset[0]}px, ${newOffset[1]}px, 0)`;
         currentHeroOffset = [...newOffset];
@@ -961,27 +926,108 @@
         }
       };
 
-      const handleHeroPointerUp = (event) => {
-        if (!isDragging || (event.pointerId ?? 0) !== dragPointerId) return;
-        event.preventDefault();
-        const finalKey = dragTargetKey || currentJourneyKey;
-        finishDrag(finalKey);
+      const endHeroDrag = (finalKey) => {
+        if (!isDragging) return;
+        setHeroTransitions(true);
+        isDragging = false;
+        dragPointerId = null;
+        heroOrb.classList.remove('dragging');
+        const keyToRender = finalKey || currentJourneyKey;
+        if (keyToRender) {
+          activateButton(keyToRender);
+          renderJourney(keyToRender);
+        } else if (currentJourneyKey) {
+          renderJourney(currentJourneyKey);
+        }
       };
 
-      const handleHeroPointerCancel = (event) => {
-        if (!isDragging || (event.pointerId ?? 0) !== dragPointerId) return;
-        finishDrag(currentJourneyKey);
-      };
+      const supportsPointer = 'PointerEvent' in window;
 
-      if (heroOrb) {
-        heroOrb.addEventListener('pointerdown', handleHeroPointerDown);
-      }
-      if (heroOrbWrapper) {
-        heroOrbWrapper.addEventListener('pointerdown', (event) => {
-          if (event.target !== heroOrb) {
-            handleHeroPointerDown(event);
-          }
-        });
+      if (supportsPointer) {
+        if (heroOrb) {
+          heroOrb.addEventListener('pointerdown', (event) => {
+            event.preventDefault();
+            dragPointerId = event.pointerId;
+            startHeroDrag(event.clientX, event.clientY);
+            heroOrb.setPointerCapture(dragPointerId);
+          });
+
+          heroOrb.addEventListener('pointermove', (event) => {
+            if (!isDragging || event.pointerId !== dragPointerId) return;
+            event.preventDefault();
+            updateHeroDrag(event.clientX, event.clientY);
+          });
+
+          const finishPointer = (event, finalKey) => {
+            if (!isDragging || event.pointerId !== dragPointerId) return;
+            event.preventDefault();
+            if (heroOrb.hasPointerCapture(event.pointerId)) {
+              heroOrb.releasePointerCapture(event.pointerId);
+            }
+            endHeroDrag(finalKey);
+          };
+
+          heroOrb.addEventListener('pointerup', (event) => finishPointer(event, dragTargetKey || currentJourneyKey));
+          heroOrb.addEventListener('pointercancel', (event) => finishPointer(event, currentJourneyKey));
+        }
+      } else {
+        if (heroOrb) {
+          heroOrb.addEventListener('mousedown', (event) => {
+            event.preventDefault();
+            dragPointerId = 'mouse';
+            startHeroDrag(event.clientX, event.clientY);
+
+            const handleMouseMove = (moveEvent) => {
+              updateHeroDrag(moveEvent.clientX, moveEvent.clientY);
+            };
+
+            const handleMouseUp = () => {
+              window.removeEventListener('mousemove', handleMouseMove);
+              window.removeEventListener('mouseup', handleMouseUp);
+              endHeroDrag(dragTargetKey || currentJourneyKey);
+            };
+
+            window.addEventListener('mousemove', handleMouseMove);
+            window.addEventListener('mouseup', handleMouseUp);
+          });
+
+          heroOrb.addEventListener('touchstart', (event) => {
+            const touch = event.changedTouches[0];
+            if (!touch) return;
+            event.preventDefault();
+            dragPointerId = touch.identifier;
+            startHeroDrag(touch.clientX, touch.clientY);
+
+            const handleTouchMove = (moveEvent) => {
+              const moveTouch = Array.from(moveEvent.changedTouches).find((t) => t.identifier === dragPointerId) || moveEvent.touches[0];
+              if (!moveTouch) return;
+              moveEvent.preventDefault();
+              updateHeroDrag(moveTouch.clientX, moveTouch.clientY);
+            };
+
+            const handleTouchEnd = (endEvent) => {
+              const endTouch = Array.from(endEvent.changedTouches).find((t) => t.identifier === dragPointerId);
+              if (!endTouch) return;
+              window.removeEventListener('touchmove', handleTouchMove);
+              window.removeEventListener('touchend', handleTouchEnd);
+              window.removeEventListener('touchcancel', handleTouchCancel);
+              endHeroDrag(dragTargetKey || currentJourneyKey);
+            };
+
+            const handleTouchCancel = (cancelEvent) => {
+              const cancelTouch = Array.from(cancelEvent.changedTouches).find((t) => t.identifier === dragPointerId);
+              if (!cancelTouch) return;
+              window.removeEventListener('touchmove', handleTouchMove);
+              window.removeEventListener('touchend', handleTouchEnd);
+              window.removeEventListener('touchcancel', handleTouchCancel);
+              endHeroDrag(currentJourneyKey);
+            };
+
+            window.addEventListener('touchmove', handleTouchMove, { passive: false });
+            window.addEventListener('touchend', handleTouchEnd);
+            window.addEventListener('touchcancel', handleTouchCancel);
+          });
+        }
       }
 
       navButtons.forEach((button) => {
