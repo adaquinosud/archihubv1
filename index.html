@@ -49,11 +49,11 @@
     .animate-orb-pop {
       animation: orbPop 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    #heroOrb {
+    #heroOrb, #journeyOrb {
       cursor: grab;
       touch-action: none;
     }
-    #heroOrb.dragging {
+    #heroOrb.dragging, #journeyOrb.dragging {
       cursor: grabbing;
     }
   </style>
@@ -422,8 +422,9 @@
               </div>
 
               <div class="relative flex justify-center pt-2 pb-4">
-                <div class="relative">
+                <div id="journeyOrbWrapper" class="relative flex items-center justify-center transition-transform duration-600 ease-[cubic-bezier(0.22,1,0.36,1)]">
                   <div id="journeyOrbHalo" class="absolute -inset-6 rounded-full bg-archi-iris/30 blur-3xl transition-all duration-500"></div>
+                  <div id="journeyOrbGlow" class="absolute -inset-4 rounded-full bg-archi-iris/20 blur-2xl transition-all duration-500"></div>
                   <div id="journeyOrb" class="relative flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-archi-iris via-archi-lilac to-archi-aqua text-white font-display text-xl shadow-glow transition-transform duration-500">
                     <span id="journeyOrbText" class="tracking-[0.38em] text-[0.7rem] uppercase">INV</span>
                   </div>
@@ -537,7 +538,8 @@
           orbHalo: 'bg-archi-iris/30',
           orbLabel: 'INV',
           orbCaption: 'Inventário',
-          heroOffset: [0, -32]
+          heroOffset: [0, -32],
+          panelOffset: [0, -18]
         },
         escuta: {
           label: 'Escuta ativa',
@@ -567,7 +569,8 @@
           orbHalo: 'bg-archi-aqua/30',
           orbLabel: 'ESC',
           orbCaption: 'Escuta',
-          heroOffset: [42, -26]
+          heroOffset: [42, -26],
+          panelOffset: [24, -12]
         },
         devocional: {
           label: 'Devocional diário',
@@ -597,7 +600,8 @@
           orbHalo: 'bg-archi-mint/30',
           orbLabel: 'DEV',
           orbCaption: 'Devocional',
-          heroOffset: [54, 18]
+          heroOffset: [54, 18],
+          panelOffset: [32, 14]
         },
         biblioteca: {
           label: 'Biblioteca dinâmica',
@@ -627,7 +631,8 @@
           orbHalo: 'bg-archi-amber/30',
           orbLabel: 'BIB',
           orbCaption: 'Biblioteca',
-          heroOffset: [0, 40]
+          heroOffset: [0, 40],
+          panelOffset: [0, 26]
         },
         jornada: {
           label: 'Jornada espiritual',
@@ -657,7 +662,8 @@
           orbHalo: 'bg-archi-lilac/30',
           orbLabel: 'JRN',
           orbCaption: 'Jornada',
-          heroOffset: [-52, 20]
+          heroOffset: [-52, 20],
+          panelOffset: [-30, 16]
         },
         diario: {
           label: 'Diário de reflexão',
@@ -687,7 +693,8 @@
           orbHalo: 'bg-archi-blush/30',
           orbLabel: 'DIA',
           orbCaption: 'Diário',
-          heroOffset: [-46, -22]
+          heroOffset: [-46, -22],
+          panelOffset: [-26, -14]
         }
       };
 
@@ -713,8 +720,10 @@
 
       const journeyOrb = document.getElementById('journeyOrb');
       const journeyOrbText = document.getElementById('journeyOrbText');
-      const journeyOrbHalo = document.getElementById('journeyOrbHalo');
       const journeyOrbCaption = document.getElementById('journeyOrbCaption');
+      const journeyOrbHalo = document.getElementById('journeyOrbHalo');
+      const journeyOrbGlow = document.getElementById('journeyOrbGlow');
+      const journeyOrbWrapper = document.getElementById('journeyOrbWrapper');
 
       const orbBaseClass = 'relative flex h-28 w-28 items-center justify-center rounded-full text-white font-display text-xl shadow-glow transition-transform duration-500';
       const orbTextBaseClass = 'tracking-[0.38em] text-[0.7rem] uppercase';
@@ -728,37 +737,17 @@
       const heroGlowBaseClass = 'absolute inset-0 m-auto w-40 h-40 rounded-full blur-xl transition-all duration-500';
       const heroWrapperBaseClass = 'relative flex items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]';
 
-      const baseNavClasses = ['journey-nav', 'group', 'w-full', 'rounded-3xl', 'border', 'border-white/15', 'bg-white/5', 'backdrop-blur', 'px-5', 'py-4', 'text-left', 'transition-all', 'duration-300'];
+      const panelWrapperBaseClass = 'relative flex items-center justify-center transition-transform duration-600 ease-[cubic-bezier(0.22,1,0.36,1)]';
+      const panelGlowBaseClass = 'absolute -inset-4 rounded-full blur-2xl transition-all duration-500';
       const activeNavClasses = ['border-archi-iris/70', 'bg-white/15', 'shadow-[0_25px_45px_-25px_rgba(99,102,241,0.6)]'];
+
       const labelBaseClass = 'text-[0.6rem] uppercase tracking-[0.4em] font-semibold';
       const badgeBaseClass = 'px-3 py-1 rounded-full text-[0.55rem] uppercase tracking-[0.35em] font-semibold backdrop-blur';
       const chipBaseClass = 'px-4 py-2 rounded-full text-[0.7rem] font-medium transition-colors duration-200 border bg-white/10 text-white/85';
       const bulletBaseClass = 'inline-block h-2 w-2 rounded-full';
 
       let currentJourneyKey = null;
-      let currentHeroOffset = [0, 0];
-      let isDragging = false;
-      let dragPointerId = null;
-      let dragStart = { x: 0, y: 0 };
-      let heroDragBase = [0, 0];
-      let dragTargetKey = null;
-
-      const setHeroTransitions = (enabled) => {
-        const value = enabled ? '' : 'none';
-        if (heroOrbWrapper) heroOrbWrapper.style.transition = value;
-        if (heroOrb) heroOrb.style.transition = value;
-        if (heroOrbHalo) heroOrbHalo.style.transition = value;
-        if (heroOrbGlow) heroOrbGlow.style.transition = value;
-      };
-
-      const resetButtonClasses = (button) => {
-        button.classList.remove(...activeNavClasses);
-        baseNavClasses.forEach((cls) => {
-          if (!button.classList.contains(cls)) {
-            button.classList.add(cls);
-          }
-        });
-      };
+      let orbStates = [];
 
       const activateButton = (key) => {
         navButtons.forEach((button) => {
@@ -766,95 +755,31 @@
             button.classList.add(...activeNavClasses);
             button.classList.remove('border-white/15', 'bg-white/5');
           } else {
-            resetButtonClasses(button);
+            button.classList.remove(...activeNavClasses);
+            button.classList.add('border-white/15', 'bg-white/5');
           }
         });
       };
 
-      const renderJourney = (key) => {
-        const data = journeyData[key];
-        if (!data || !journeyLabel || !journeyTitle) return;
-
-        currentJourneyKey = key;
-        const targetOffset = data.heroOffset || [0, 0];
-        currentHeroOffset = [...targetOffset];
-
-        journeyLabel.textContent = data.label;
-        journeyLabel.className = `${labelBaseClass} ${data.accent || ''}`.trim();
-
-        journeyTitle.textContent = data.title;
-        journeySummary.textContent = data.summary;
-        journeyVerse.textContent = data.verse;
-        journeyReference.textContent = data.reference;
-
+      const updateJourneyContent = (data) => {
+        if (!data) return;
+        if (journeyLabel) {
+          journeyLabel.textContent = data.label;
+          journeyLabel.className = `${labelBaseClass} ${data.accent || ''}`.trim();
+        }
+        if (journeyTitle) journeyTitle.textContent = data.title || '';
+        if (journeySummary) journeySummary.textContent = data.summary || '';
+        if (journeyVerse) journeyVerse.textContent = data.verse || '';
+        if (journeyReference) journeyReference.textContent = data.reference || '';
         if (journeyBadge) {
           journeyBadge.textContent = data.badge || '';
           journeyBadge.className = `${badgeBaseClass} ${data.badgeClass || ''}`.trim();
         }
-
-        if (journeyHighlightTitle) {
-          journeyHighlightTitle.textContent = data.highlightTitle || 'Direção Sophia';
-        }
-        if (journeyHighlightText) {
-          journeyHighlightText.textContent = data.highlight || '';
-        }
-
+        if (journeyHighlightTitle) journeyHighlightTitle.textContent = data.highlightTitle || 'Direção Sophia';
+        if (journeyHighlightText) journeyHighlightText.textContent = data.highlight || '';
         if (journeyBackground) {
           journeyBackground.className = `absolute inset-0 rounded-[32px] bg-gradient-to-br ${data.gradient} opacity-90 blur-sm`;
         }
-
-        if (journeyOrb) {
-          journeyOrb.className = `${orbBaseClass} bg-gradient-to-br ${data.orbGradient || 'from-archi-iris via-archi-lilac to-archi-aqua'}`.trim();
-          if (!isDragging) {
-            journeyOrb.classList.remove('animate-orb-pop');
-            void journeyOrb.offsetWidth;
-            journeyOrb.classList.add('animate-orb-pop');
-          }
-        }
-
-        if (journeyOrbText) {
-          journeyOrbText.textContent = data.orbLabel || 'SOPHIA';
-          journeyOrbText.className = `${orbTextBaseClass}`.trim();
-        }
-
-        if (journeyOrbHalo) {
-          journeyOrbHalo.className = `${haloBaseClass} ${data.orbHalo || 'bg-white/25'}`.trim();
-        }
-
-        if (journeyOrbCaption) {
-          journeyOrbCaption.textContent = data.orbCaption || data.label || 'Sophia Orb';
-          journeyOrbCaption.className = orbCaptionBaseClass;
-        }
-
-        if (heroOrb) {
-          heroOrb.className = `${heroOrbBaseClass} ${data.orbGradient || 'from-archi-iris via-archi-lilac to-archi-aqua'}`.trim();
-          if (!isDragging) {
-            heroOrb.classList.remove('animate-orb-pop');
-            void heroOrb.offsetWidth;
-            heroOrb.classList.add('animate-orb-pop');
-          }
-        }
-
-        if (heroOrbText) {
-          heroOrbText.textContent = data.orbLabel || 'SOPHIA';
-          heroOrbText.className = heroOrbTextBaseClass;
-        }
-
-        if (heroOrbWrapper && !isDragging) {
-          heroOrbWrapper.className = heroWrapperBaseClass;
-          heroOrbWrapper.style.transform = `translate3d(${targetOffset[0]}px, ${targetOffset[1]}px, 0)`;
-        }
-
-        if (heroOrbHalo) {
-          heroOrbHalo.className = `${heroHaloBaseClass} ${data.orbHalo || 'bg-white/25'}`.trim();
-          if (!isDragging) heroOrbHalo.style.transition = '';
-        }
-
-        if (heroOrbGlow) {
-          heroOrbGlow.className = `${heroGlowBaseClass} bg-gradient-to-br ${data.orbGradient || 'from-archi-iris via-archi-lilac to-archi-aqua'} opacity-80`.trim();
-          if (!isDragging) heroOrbGlow.style.transition = '';
-        }
-
         if (journeyMetrics) {
           journeyMetrics.innerHTML = '';
           (data.metrics || []).forEach((item) => {
@@ -869,7 +794,6 @@
             journeyMetrics.appendChild(li);
           });
         }
-
         if (journeyActions) {
           journeyActions.innerHTML = '';
           (data.actions || []).forEach((action) => {
@@ -897,138 +821,240 @@
         return nearestKey;
       };
 
-      const startHeroDrag = (clientX, clientY) => {
-        if (!heroOrbWrapper || !heroOrb) return;
-        isDragging = true;
-        dragStart = { x: clientX, y: clientY };
-        heroDragBase = [...currentHeroOffset];
-        dragTargetKey = currentJourneyKey;
-        setHeroTransitions(false);
-        heroOrb.classList.add('dragging');
-        heroOrbWrapper.style.transform = `translate3d(${heroDragBase[0]}px, ${heroDragBase[1]}px, 0)`;
+      const renderJourney = (key) => {
+        const data = journeyData[key];
+        if (!data) return;
+        currentJourneyKey = key;
+        updateJourneyContent(data);
+        orbStates.forEach((state) => state.applyData(data));
       };
 
-      const updateHeroDrag = (clientX, clientY) => {
-        if (!isDragging || !heroOrbWrapper) return;
-        const deltaX = clientX - dragStart.x;
-        const deltaY = clientY - dragStart.y;
-        const newOffset = [heroDragBase[0] + deltaX, heroDragBase[1] + deltaY];
-        heroOrbWrapper.style.transform = `translate3d(${newOffset[0]}px, ${newOffset[1]}px, 0)`;
-        currentHeroOffset = [...newOffset];
+      const createOrbController = (config) => {
+        const state = {
+          config,
+          isDragging: false,
+          pointerId: null,
+          dragStart: { x: 0, y: 0 },
+          baseOffset: [0, 0],
+          currentOffset: [0, 0],
+          targetKey: null,
+          desiredOffset: [0, 0]
+        };
 
-        const rect = heroOrbWrapper.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const nearestKey = findNearestJourney(centerX, centerY);
-        if (nearestKey && nearestKey !== dragTargetKey) {
-          dragTargetKey = nearestKey;
-          activateButton(nearestKey);
-        }
-      };
+        const setTransitions = (enabled) => {
+          const value = enabled ? '' : 'none';
+          if (config.wrapper) config.wrapper.style.transition = value;
+          if (config.element) config.element.style.transition = value;
+          if (config.halo) config.halo.style.transition = value;
+          if (config.glow) config.glow.style.transition = value;
+        };
 
-      const endHeroDrag = (finalKey) => {
-        if (!isDragging) return;
-        setHeroTransitions(true);
-        isDragging = false;
-        dragPointerId = null;
-        heroOrb.classList.remove('dragging');
-        const keyToRender = finalKey || currentJourneyKey;
-        if (keyToRender) {
-          activateButton(keyToRender);
-          renderJourney(keyToRender);
-        } else if (currentJourneyKey) {
-          renderJourney(currentJourneyKey);
-        }
-      };
+        state.applyData = (data) => {
+          const gradient = data.orbGradient || 'from-archi-iris via-archi-lilac to-archi-aqua';
+          const haloColor = data.orbHalo || 'bg-white/25';
+          if (config.element) {
+            config.element.className = `${config.elementClass} ${gradient}`.trim();
+          }
+          if (config.textEl) {
+            config.textEl.textContent = data.orbLabel || 'SOPHIA';
+            config.textEl.className = config.textClass;
+          }
+          if (config.captionEl) {
+            config.captionEl.textContent = data.orbCaption || data.label || 'Sophia Orb';
+            config.captionEl.className = config.captionClass;
+          }
+          if (config.halo) {
+            config.halo.className = `${config.haloClass} ${haloColor}`.trim();
+            if (!state.isDragging) config.halo.style.transition = '';
+          }
+          if (config.glow) {
+            config.glow.className = `${config.glowClass} bg-gradient-to-br ${gradient} opacity-80`.trim();
+            if (!state.isDragging) config.glow.style.transition = '';
+          }
+          const offset = config.getOffset ? config.getOffset(data) : [0, 0];
+          state.desiredOffset = [...offset];
+          if (!state.isDragging && config.wrapper) {
+            config.wrapper.className = config.wrapperClass;
+            config.wrapper.style.transform = `translate3d(${offset[0]}px, ${offset[1]}px, 0)`;
+            state.currentOffset = [...offset];
+          }
+        };
 
-      const supportsPointer = 'PointerEvent' in window;
+        const startDrag = (clientX, clientY, pointerId) => {
+          if (!config.wrapper || !config.element) return;
+          state.isDragging = true;
+          state.pointerId = pointerId;
+          state.dragStart = { x: clientX, y: clientY };
+          state.baseOffset = [...state.currentOffset];
+          state.targetKey = currentJourneyKey;
+          setTransitions(false);
+          config.element.classList.add('dragging');
+        };
 
-      if (supportsPointer) {
-        if (heroOrb) {
-          heroOrb.addEventListener('pointerdown', (event) => {
+        const moveDrag = (clientX, clientY) => {
+          if (!state.isDragging || !config.wrapper) return;
+          const deltaX = clientX - state.dragStart.x;
+          const deltaY = clientY - state.dragStart.y;
+          const newOffset = [state.baseOffset[0] + deltaX, state.baseOffset[1] + deltaY];
+          state.currentOffset = [...newOffset];
+          config.wrapper.style.transform = `translate3d(${newOffset[0]}px, ${newOffset[1]}px, 0)`;
+
+          const rect = config.wrapper.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          const nearestKey = findNearestJourney(centerX, centerY);
+          if (nearestKey && nearestKey !== state.targetKey) {
+            state.targetKey = nearestKey;
+            activateButton(nearestKey);
+            renderJourney(nearestKey);
+          }
+        };
+
+        const endDrag = (finalKey) => {
+          if (!state.isDragging) return;
+          setTransitions(true);
+          state.isDragging = false;
+          state.pointerId = null;
+          state.dragStart = { x: 0, y: 0 };
+          if (config.element) config.element.classList.remove('dragging');
+          const keyToRender = finalKey || state.targetKey || currentJourneyKey;
+          state.targetKey = null;
+          if (keyToRender) {
+            activateButton(keyToRender);
+            renderJourney(keyToRender);
+          } else if (currentJourneyKey) {
+            renderJourney(currentJourneyKey);
+          }
+        };
+
+        const pointerTarget = config.wrapper || config.element;
+        const captureTarget = config.element || config.wrapper;
+
+        if (pointerTarget && captureTarget && window.PointerEvent) {
+          pointerTarget.addEventListener('pointerdown', (event) => {
+            if (event.button !== undefined && event.button !== 0) return;
             event.preventDefault();
-            dragPointerId = event.pointerId;
-            startHeroDrag(event.clientX, event.clientY);
-            heroOrb.setPointerCapture(dragPointerId);
-          });
-
-          heroOrb.addEventListener('pointermove', (event) => {
-            if (!isDragging || event.pointerId !== dragPointerId) return;
-            event.preventDefault();
-            updateHeroDrag(event.clientX, event.clientY);
-          });
-
-          const finishPointer = (event, finalKey) => {
-            if (!isDragging || event.pointerId !== dragPointerId) return;
-            event.preventDefault();
-            if (heroOrb.hasPointerCapture(event.pointerId)) {
-              heroOrb.releasePointerCapture(event.pointerId);
+            startDrag(event.clientX, event.clientY, event.pointerId);
+            if (captureTarget.setPointerCapture) {
+              captureTarget.setPointerCapture(event.pointerId);
             }
-            endHeroDrag(finalKey);
+          });
+
+          captureTarget.addEventListener('pointermove', (event) => {
+            if (!state.isDragging || event.pointerId !== state.pointerId) return;
+            event.preventDefault();
+            moveDrag(event.clientX, event.clientY);
+          });
+
+          const finishPointer = (event, fallbackKey) => {
+            if (!state.isDragging || event.pointerId !== state.pointerId) return;
+            event.preventDefault();
+            if (captureTarget.hasPointerCapture && captureTarget.hasPointerCapture(event.pointerId)) {
+              captureTarget.releasePointerCapture(event.pointerId);
+            }
+            endDrag(fallbackKey);
           };
 
-          heroOrb.addEventListener('pointerup', (event) => finishPointer(event, dragTargetKey || currentJourneyKey));
-          heroOrb.addEventListener('pointercancel', (event) => finishPointer(event, currentJourneyKey));
-        }
-      } else {
-        if (heroOrb) {
-          heroOrb.addEventListener('mousedown', (event) => {
+          captureTarget.addEventListener('pointerup', (event) => finishPointer(event, state.targetKey || currentJourneyKey));
+          captureTarget.addEventListener('pointercancel', (event) => finishPointer(event, currentJourneyKey));
+        } else if (pointerTarget) {
+          pointerTarget.addEventListener('mousedown', (event) => {
+            if (event.button !== 0) return;
             event.preventDefault();
-            dragPointerId = 'mouse';
-            startHeroDrag(event.clientX, event.clientY);
+            startDrag(event.clientX, event.clientY, 'mouse');
 
             const handleMouseMove = (moveEvent) => {
-              updateHeroDrag(moveEvent.clientX, moveEvent.clientY);
+              moveEvent.preventDefault();
+              moveDrag(moveEvent.clientX, moveEvent.clientY);
             };
 
             const handleMouseUp = () => {
               window.removeEventListener('mousemove', handleMouseMove);
               window.removeEventListener('mouseup', handleMouseUp);
-              endHeroDrag(dragTargetKey || currentJourneyKey);
+              endDrag(state.targetKey || currentJourneyKey);
             };
 
-            window.addEventListener('mousemove', handleMouseMove);
+            window.addEventListener('mousemove', handleMouseMove, { passive: false });
             window.addEventListener('mouseup', handleMouseUp);
           });
 
-          heroOrb.addEventListener('touchstart', (event) => {
+          pointerTarget.addEventListener('touchstart', (event) => {
             const touch = event.changedTouches[0];
             if (!touch) return;
             event.preventDefault();
-            dragPointerId = touch.identifier;
-            startHeroDrag(touch.clientX, touch.clientY);
+            const pointerId = touch.identifier ?? 'touch';
+            startDrag(touch.clientX, touch.clientY, pointerId);
 
             const handleTouchMove = (moveEvent) => {
-              const moveTouch = Array.from(moveEvent.changedTouches).find((t) => t.identifier === dragPointerId) || moveEvent.touches[0];
+              const moveTouch = Array.from(moveEvent.changedTouches).find((t) => (t.identifier ?? 'touch') === pointerId) || moveEvent.touches[0];
               if (!moveTouch) return;
               moveEvent.preventDefault();
-              updateHeroDrag(moveTouch.clientX, moveTouch.clientY);
+              moveDrag(moveTouch.clientX, moveTouch.clientY);
             };
 
-            const handleTouchEnd = (endEvent) => {
-              const endTouch = Array.from(endEvent.changedTouches).find((t) => t.identifier === dragPointerId);
-              if (!endTouch) return;
+            const cleanup = () => {
               window.removeEventListener('touchmove', handleTouchMove);
               window.removeEventListener('touchend', handleTouchEnd);
               window.removeEventListener('touchcancel', handleTouchCancel);
-              endHeroDrag(dragTargetKey || currentJourneyKey);
             };
 
-            const handleTouchCancel = (cancelEvent) => {
-              const cancelTouch = Array.from(cancelEvent.changedTouches).find((t) => t.identifier === dragPointerId);
-              if (!cancelTouch) return;
-              window.removeEventListener('touchmove', handleTouchMove);
-              window.removeEventListener('touchend', handleTouchEnd);
-              window.removeEventListener('touchcancel', handleTouchCancel);
-              endHeroDrag(currentJourneyKey);
+            const handleTouchEnd = () => {
+              cleanup();
+              endDrag(state.targetKey || currentJourneyKey);
+            };
+
+            const handleTouchCancel = () => {
+              cleanup();
+              endDrag(currentJourneyKey);
             };
 
             window.addEventListener('touchmove', handleTouchMove, { passive: false });
             window.addEventListener('touchend', handleTouchEnd);
             window.addEventListener('touchcancel', handleTouchCancel);
-          });
+          }, { passive: false });
         }
-      }
+
+        return state;
+      };
+
+      const orbConfigs = [
+        {
+          name: 'hero',
+          element: heroOrb,
+          wrapper: heroOrbWrapper,
+          halo: heroOrbHalo,
+          glow: heroOrbGlow,
+          textEl: heroOrbText,
+          captionEl: heroOrbCaption,
+          elementClass: heroOrbBaseClass,
+          textClass: heroOrbTextBaseClass,
+          captionClass: heroOrbCaptionBaseClass,
+          haloClass: heroHaloBaseClass,
+          glowClass: heroGlowBaseClass,
+          wrapperClass: heroWrapperBaseClass,
+          getOffset: (data) => data.heroOffset || [0, 0]
+        },
+        {
+          name: 'panel',
+          element: journeyOrb,
+          wrapper: journeyOrbWrapper,
+          halo: journeyOrbHalo,
+          glow: journeyOrbGlow,
+          textEl: journeyOrbText,
+          captionEl: journeyOrbCaption,
+          elementClass: orbBaseClass,
+          textClass: orbTextBaseClass,
+          captionClass: orbCaptionBaseClass,
+          haloClass: haloBaseClass,
+          glowClass: panelGlowBaseClass,
+          wrapperClass: panelWrapperBaseClass,
+          getOffset: (data) => data.panelOffset || [0, 0]
+        }
+      ];
+
+      orbStates = orbConfigs
+        .filter((config) => config.element && config.wrapper)
+        .map(createOrbController);
 
       navButtons.forEach((button) => {
         button.addEventListener('click', () => {
